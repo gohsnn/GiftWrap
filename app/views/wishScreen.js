@@ -81,6 +81,12 @@ export default class WishScreen extends React.Component {
             title="Go to Details"
             onPress={() => this.props.navigation.navigate('Details')}
           />
+
+          <Button
+            title="Add item"
+            onPress={() => this.props.navigation.navigate('Add')}
+          />
+
         </View>
       );
     }
