@@ -24,10 +24,12 @@ import WishScreen  from "./app/views/wishScreen";
 import SignInScreen  from "./app/views/signInScreen";
 import SettingsScreen  from "./app/views/settingsScreen";
 import DetailsScreen from "./app/views/detailsScreen";
+import AddToWishlistScreen from "./app/views/addItemToWishlist";
 
 const WishStack = createStackNavigator({
   Wishlist: { screen: WishScreen },
   Details: { screen: DetailsScreen },
+  Add: {screen: AddToWishlistScreen},
 });
   
 const SettingsStack = createStackNavigator({

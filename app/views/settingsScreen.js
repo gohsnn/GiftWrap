@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 // import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import images from 'assets/images'
 
 
 export default class SettingsScreen extends React.Component {
@@ -35,7 +36,7 @@ export default class SettingsScreen extends React.Component {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
-          source={require('./pooh.png')}
+          source={images.pooh}
           style={{width: 80, height: 80, resizeMode: 'center'}}
           />
           <Text></Text>
