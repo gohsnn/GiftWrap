@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   itemtext: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontWeight: 'normal',
     textAlign: 'center'
   }
 });
