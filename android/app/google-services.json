@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "16954597642",
+    "firebase_url": "https://giftwrap-f0fd7.firebaseio.com",
+    "project_id": "giftwrap-f0fd7",
+    "storage_bucket": "giftwrap-f0fd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16954597642:android:2ab0ec9e4b9fb212",
+        "android_client_info": {
+          "package_name": "com.giftwrap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16954597642-dablcqn58tsvk3gidnk8pg8d0d0vcu5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCele1UTxHfPdHUyLk0TT6nZQ9OjQcjnG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16954597642-dablcqn58tsvk3gidnk8pg8d0d0vcu5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
