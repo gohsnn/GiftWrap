@@ -32,6 +32,8 @@ import firebase from 'react-native-firebase';
 const db = firebase.database();
 let user = firebase.auth().currentUser;
 let uid = user.uid;
+let name = user.displayName; //available
+let photoUrl = user.photoURL;
 
 // if (user != null) {
 //   let uid = user.uid;
@@ -42,7 +44,8 @@ let addItem = (item, money) => {
       {
           name: item,
           price: money,
-          userId: uid
+          username: name,
+          photo : photoUrl
       }
       );
 };

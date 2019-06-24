@@ -12,8 +12,14 @@ import {
 // import { Ionicons } from '@expo/vector-icons';
 import images from 'assets/images'
 import { LoginManager } from 'react-native-fbsdk';
+import firebase from 'react-native-firebase';
 
 
+const db = firebase.database();
+let user = firebase.auth().currentUser;
+let name = user.displayName; //available
+let photoUrl = user.photoURL; //link to graph
+let email = user.email;
 
 export default class SettingsScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -37,7 +43,7 @@ export default class SettingsScreen extends React.Component {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
-          source={images.pooh}
+          source={{ uri: photoUrl + '?type=large' }}
           style={{width: 80, height: 80, resizeMode: 'center'}}
           />
           <Text></Text>
@@ -45,24 +51,15 @@ export default class SettingsScreen extends React.Component {
           style={{ 
             fontSize: 16,
             fontWeight: 'bold' }}
-          >Fancy Pooh</Text>
-          <Text>fancyPooh@gmail.com</Text>
+          >{name}</Text>
+          <Text>{email}</Text>
           <Text></Text>
           <Button boarded light 
           title="Sign out" onPress={this._signOutAsync} />
         </View>
       );
     }
-    /*
-    <Button
-      title="Go to MyWishlist"
-      onPress={() => this.props.navigation.navigate('Wishlist')}
-    />
-    <Button
-      title="Go to Details"
-      onPress={() => this.props.navigation.navigate('Details')}
-    /> */
-    
+   
     _signOutAsync = async () => {
       await facebookLogout();
       this.props.navigation.navigate('Auth');
