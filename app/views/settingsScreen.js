@@ -10,8 +10,9 @@ import {
   Image,
 } from 'react-native';
 // import { Ionicons } from '@expo/vector-icons';
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import images from 'assets/images'
+import { LoginManager } from 'react-native-fbsdk';
+
 
 
 export default class SettingsScreen extends React.Component {
@@ -63,9 +64,13 @@ export default class SettingsScreen extends React.Component {
     /> */
     
     _signOutAsync = async () => {
-      await AsyncStorage.clear();
+      await facebookLogout();
       this.props.navigation.navigate('Auth');
     };
+  }
+
+  function facebookLogout() {
+    LoginManager.logOut();
   }
 
 //   module.export = Settings;
