@@ -18,9 +18,13 @@ import {
 } from 'react-navigation';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
-import { db } from '../config';
+// import { db } from '../config';
+import firebase from 'react-native-firebase';
 
-let itemsRef = db.ref('/wishList');
+const db = firebase.database();
+let user = firebase.auth().currentUser;
+let uid = user.uid;
+let itemsRef = db.ref('users/' + uid);
 
 
 export default class WishScreen extends React.Component {

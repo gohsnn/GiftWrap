@@ -26,13 +26,25 @@ import {
 //         Form,
 //         Right} from "native-base";
 // import { Ionicons } from '@expo/vector-icons';
-import { db } from "../config";
+// import { db } from "../config";
+import firebase from 'react-native-firebase';
 
+const db = firebase.database();
+let user = firebase.auth().currentUser;
+let uid = user.uid;
+
+// if (user != null) {
+//   let uid = user.uid;
+
+// }
 let addItem = (item, money) => {
-    db.ref('/wishList').push({
-        name: item,
-        price: money
-    });
+    db.ref('users/' + uid).push(
+      {
+          name: item,
+          price: money,
+          userId: uid
+      }
+      );
 };
 
 export default class AddtoWishlistScreen extends React.Component {
