@@ -50,7 +50,7 @@ export default class SignInScreen extends React.Component {
     
     async facebookLogin() {
       try {
-        const result = await LoginManager.logInWithReadPermissions(['public_profile', 'email']);
+        const result = await LoginManager.logInWithReadPermissions(['public_profile', 'email', 'user_friends']);
     
         if (result.isCancelled) {
           // handle this however suites the flow of your app

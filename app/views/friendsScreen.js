@@ -8,10 +8,55 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { GraphRequest, GraphRequestManager, AccessToken} from 'react-native-fbsdk';
+import firebase from 'react-native-firebase';
+// import console = require('console');
+
+
+
 
 export default class FriendsScreen extends React.Component {
+  state = {
+      id: 'blank id',
+      email: 'blank email'
+    }
+
+    async FBGraphRequest(fields, callback) {
+      const accessData = await AccessToken.getCurrentAccessToken();
+      // Create a graph request asking for user information
+      const infoRequest = new GraphRequest('/me', {
+        accessToken: accessData.accessToken,
+        parameters: {
+          fields: {
+            string: fields
+          }
+        }
+      }, callback.bind(this));
+      // Execute the graph request created above
+      new GraphRequestManager().addRequest(infoRequest).start();
+      // alert();
+    };
+
+
+   async FBLoginCallback(error, result) {
+    if (error) {
+      this.setState({
+        showLoadingModal: false,
+        notificationMessage: I18n.t(welcome.FACEBOOK_GRAPH_REQUEST_ERROR)
+      });
+    } else {
+      //not using redux but firebase so maybe save it there instead
+      this.setState({
+        id: result.id,
+        email: result.email
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.FBGraphRequest('email, id', this.FBLoginCallback);
+  }
+
   static navigationOptions = ({ navigation }) => {
       return {
         title: 'My Friends',
@@ -42,6 +87,7 @@ export default class FriendsScreen extends React.Component {
               fontWeight:'bold'}}
             >     Whose wishlist would you like to see?
             </Text>
+            <Text>{this.state.email}</Text>
             <Text></Text>
             <Text>      ALL MY FRIENDS</Text>
             <Text>      Not your friends</Text>
