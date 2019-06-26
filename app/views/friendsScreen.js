@@ -17,8 +17,8 @@ import firebase from 'react-native-firebase';
 
 export default class FriendsScreen extends React.Component {
   state = {
-      id: 'blank id',
-      email: 'blank email'
+      friends: [],
+      summary: 'bleh'
     }
 
     async FBGraphRequest(fields, callback) {
@@ -47,14 +47,14 @@ export default class FriendsScreen extends React.Component {
     } else {
       //not using redux but firebase so maybe save it there instead
       this.setState({
-        id: result.id,
-        email: result.email
+        friends: result.friends.data,
+        summary: result.friends.summary.total_count
       });
     }
   }
 
   componentDidMount() {
-    this.FBGraphRequest('email, id', this.FBLoginCallback);
+    this.FBGraphRequest('friends', this.FBLoginCallback);
   }
 
   static navigationOptions = ({ navigation }) => {
