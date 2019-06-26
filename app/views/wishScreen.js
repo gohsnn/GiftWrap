@@ -22,23 +22,35 @@ import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
 
 const db = firebase.database();
-let user = firebase.auth().currentUser;
-let uid = user.uid;
-let itemsRef = db.ref('users/' + uid);
 
+var user, userId, itemsRef;
 
 export default class WishScreen extends React.Component {
+  
+  // firebase.auth().onAuthStateChanged( user => {
+  //   if (user) { 
+  //     userId = user.uid;
+  //     itemsRef = db.ref('users/' + userId)
+  //   }
+  // });
+  // userId = user.uid;
+
   state = {
     items: []
   }
 
   componentDidMount() {
+    user = firebase.auth().currentUser;
+    userId = user.uid;
+    itemsRef = db.ref('users/' + userId);
     itemsRef.on('value', snapshot => {
       // let name = snapshot.child("name").val();
       // let price = snapshot.child("price").val();
       let data = snapshot.val();
-      let items = Object.values(data);
-      this.setState({ items });
+      if (data) {
+        let items = Object.values(data);
+        this.setState({ items });
+      } 
     });
   }
 
