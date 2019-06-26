@@ -23,7 +23,7 @@ import firebase from 'react-native-firebase';
 
 const db = firebase.database();
 
-var user, userId, itemsRef;
+var user, cat, userId, itemsRef;
 
 export default class WishScreen extends React.Component {
   
@@ -42,7 +42,8 @@ export default class WishScreen extends React.Component {
   componentDidMount() {
     user = firebase.auth().currentUser;
     userId = user.uid;
-    itemsRef = db.ref('users/' + userId);
+    cat = "wishlist";
+    itemsRef = db.ref('users/' + cat + userId);
     itemsRef.on('value', snapshot => {
       // let name = snapshot.child("name").val();
       // let price = snapshot.child("price").val();

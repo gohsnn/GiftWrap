@@ -25,6 +25,7 @@ import SignInScreen  from "./app/views/signInScreen";
 import SettingsScreen  from "./app/views/settingsScreen";
 import DetailsScreen from "./app/views/detailsScreen";
 import AddToWishlistScreen from "./app/views/addItemToWishlist";
+import AddtoOrganiserScreen from './app/views/addItemToOrganiser';
 
 const WishStack = createStackNavigator({
   Wishlist: { screen: WishScreen },
@@ -39,7 +40,8 @@ const SettingsStack = createStackNavigator({
   
 const OrganiserStack= createStackNavigator({
   Organiser: { screen: OrganiserScreen},
-  Details: { screen: DetailsScreen }
+  Details: { screen: DetailsScreen },
+  AddOrg: {screen: AddtoOrganiserScreen},
 });
   
 const FriendsStack = createStackNavigator({

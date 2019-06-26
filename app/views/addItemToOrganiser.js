@@ -12,42 +12,46 @@ import {
   Alert,
   View,
 } from 'react-native';
-// import {Container, 
-//         Input, 
-//         InputGroup, 
-//         Left, 
-//         Content, 
-//         Header, 
-//         Footer, 
-//         FooterTab, 
-//         Button, 
-//         Icon, 
-//         Picker,
-//         Form,
-//         Right} from "native-base";
-// import { Ionicons } from '@expo/vector-icons';
-// import { db } from "../config";
+import {Container, 
+        Input, 
+        InputGroup, 
+        Left, 
+        Content, 
+        Header, 
+        Footer, 
+        FooterTab, 
+        Icon, 
+        Picker,
+        Form,
+        Right} from "native-base";
 import firebase from 'react-native-firebase';
 
-
 const db = firebase.database();
-var user, uid, cat, name, photoUrl, addItem;
+var user, uid, name, cat, photoUrl, addItem;
 
-export default class AddtoWishlistScreen extends React.Component {
+export default class AddtoOrganiserScreen extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedEvent: undefined
+        };
+    }
   
   componentWillMount() {
     user = firebase.auth().currentUser;
     uid = user.uid;
-    cat = "wishlist";
+    cat = "organiser";
     name = user.displayName; //available
     photoUrl = user.photoURL;
   } 
 
- addItem(item, money) {
+ addItem(item, money, person, event, date) {
   db.ref('users/' + cat + uid).push(
     {
       name: item,
       price: money,
+      giftee: person,
+      event: event,
       username: name,
       photo: photoUrl
     }
@@ -56,8 +60,16 @@ export default class AddtoWishlistScreen extends React.Component {
 
 state = {
   name: '',
-  price: ''
+  price: '',
+  giftee: '',
+  event: ''
 };
+
+handleChangeGiftee = e => {
+    this.setState({
+        giftee: e.nativeEvent.text
+    });
+}
 
 handleChangeName = e => {
   this.setState({
@@ -71,14 +83,21 @@ handleChangePrice = e => {
   });
 };
 
+
+handleChangeEvent = e => {
+    this.setState({
+        event: e.nativeEvent.text
+    });
+}
+
 handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price);
+  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.event);
   Alert.alert('Item saved successfully');
 };
     
     static navigationOptions = ({ navigation }) => {
   return {
-    title: 'Add Item to Wishlist',
+    title: 'Add Gift to Organiser',
     headerStyle: {
       backgroundColor: '#ed5f56',
     },
@@ -93,12 +112,41 @@ handleSubmit = () => {
   }
 };
 
+onValueChange(value) {
+    this.setState({
+        selectedEvent: value
+    });
+    this.handleChangeEvent;
+}
+
 render() {
   return (
     <View>
       <Text style={styles.title}>Add Item</Text>
+      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} />
       <TextInput style={styles.itemInput} onChange={this.handleChangeName} />
       <TextInput style={styles.itemInput} onChange={this.handleChangePrice} />
+        <Form>
+            <Picker
+            mode="dropdown"
+            iosIcon={<Icon name="arrow-down"/>}
+            placeholder="Choose event"
+            placeholderStyle={{ color: "black" }}
+            placeholderIconColor="#007aff"
+            style={{ width: undefined }}
+            selectedValue={this.state.selectedEvent}
+            onValueChange={this.onValueChange.bind(this)}
+            >
+              <Picker.Item label="Choose event" value="key0"/>
+              <Picker.Item label="Birthday" value="key1"/>
+              <Picker.Item label="Christmas" value="key2"/>
+              <Picker.Item label="Wedding" value="key3"/>
+              <Picker.Item label="Mother's Day" value="key4"/>
+              <Picker.Item label="Father's Day" value="key5"/>
+              <Picker.Item label="Anniversary" value="key6"/>
+            </Picker>
+          </Form>
+
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"
