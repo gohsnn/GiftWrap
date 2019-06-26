@@ -50,6 +50,7 @@ export default class FriendsScreen extends React.Component {
         friends: result.friends.data,
         summary: result.friends.summary.total_count
       });
+      alert(this.state.friends[0].name);
     }
   }
 
