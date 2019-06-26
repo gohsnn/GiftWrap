@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { GraphRequest, GraphRequestManager, AccessToken} from 'react-native-fbsdk';
 import firebase from 'react-native-firebase';
+import FriendComponent from '../components/FriendComponent';
+import ItemComponent from '../components/FriendComponent';
 // import console = require('console');
 
 
@@ -88,10 +90,12 @@ export default class FriendsScreen extends React.Component {
               fontWeight:'bold'}}
             >     Whose wishlist would you like to see?
             </Text>
-            <Text>{this.state.email}</Text>
+            {this.state.friends.length > 0 ? (
+          <FriendComponent friends={this.state.friends} />
+        ) : (
+            <Text>Time to get some friends</Text>
+          )}
             <Text></Text>
-            <Text>      ALL MY FRIENDS</Text>
-            <Text>      Not your friends</Text>
         </View>
       );
     }
