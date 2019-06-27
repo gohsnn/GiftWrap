@@ -11,8 +11,6 @@ import {
 import { GraphRequest, GraphRequestManager, AccessToken} from 'react-native-fbsdk';
 import firebase from 'react-native-firebase';
 import FriendComponent from '../components/FriendComponent';
-import ItemComponent from '../components/FriendComponent';
-// import console = require('console');
 
 
 
@@ -36,7 +34,7 @@ export default class FriendsScreen extends React.Component {
       }, callback.bind(this));
       // Execute the graph request created above
       new GraphRequestManager().addRequest(infoRequest).start();
-      // alert();
+      // alert(accessData.getUserId());
     };
 
 
@@ -52,11 +50,11 @@ export default class FriendsScreen extends React.Component {
         friends: result.friends.data,
         summary: result.friends.summary.total_count
       });
-      alert(this.state.friends[0].name);
+      // alert(this.state.friends[0].id);
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.FBGraphRequest('friends', this.FBLoginCallback);
   }
 
@@ -91,7 +89,7 @@ export default class FriendsScreen extends React.Component {
             >     Whose wishlist would you like to see?
             </Text>
             {this.state.friends.length > 0 ? (
-          <FriendComponent friends={this.state.friends} />
+          <FriendComponent friends={this.state.friends}/>
         ) : (
             <Text>Time to get some friends</Text>
           )}

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';  
 import { View, Text, StyleSheet } from 'react-native';  
 import PropTypes from 'prop-types';
+import { withNavigation } from 'react-navigation';
 
-export default class FriendComponent extends Component {  
+class FriendComponent extends Component {  
   static propTypes = {
-    friends: PropTypes.array.isRequired
+    friends: PropTypes.array.isRequired,
   };
 
   render() {
@@ -13,15 +14,22 @@ export default class FriendComponent extends Component {
         {this.props.friends.map((friend, index) => {
           return (
             <View key={index}>
-              <Text style={styles.itemtext}>{friend.name}</Text>
-            </View>
+              <Text style={styles.itemtext} 
+              onPress = {() => this.props.navigation.navigate('Friend', friend)}>
+              {friend.name}
+              </Text>
+            </View> 
           );
         })}
       </View>
     );
   }
-}
+//   handleFriend(friend) {
+//       this.props.navigation.navigate('Friend', friend);
+//   }
 
+
+}
 //plan: have an onpress action that handles the press 
 //but need to find the userID from the friend tho
 //id from graph request not the same user.uid
@@ -40,3 +48,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
+
+export default withNavigation(FriendComponent);

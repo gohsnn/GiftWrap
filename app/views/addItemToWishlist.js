@@ -28,22 +28,24 @@ import {
 // import { Ionicons } from '@expo/vector-icons';
 // import { db } from "../config";
 import firebase from 'react-native-firebase';
+import {AccessToken} from 'react-native-fbsdk';
 
 
 const db = firebase.database();
-var user, uid, name, photoUrl, addItem;
+var user, userId, name, photoUrl, accessData;
 
 export default class AddtoWishlistScreen extends React.Component {
   
-  componentWillMount() {
+  async componentWillMount() {
     user = firebase.auth().currentUser;
-    uid = user.uid;
+    accessData = await AccessToken.getCurrentAccessToken();
+    userId = accessData.getUserId();    
     name = user.displayName; //available
     photoUrl = user.photoURL;
   }
 
  addItem(item, money) {
-  db.ref('users/' + uid).push(
+  db.ref('users/' + userId).push(
     {
       name: item,
       price: money,

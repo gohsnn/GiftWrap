@@ -9,44 +9,29 @@ import {
   View,
   Icon,
 } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-// import {
-//   createStackNavigator,
-//   createSwitchNavigator,
-//   createBottomTabNavigator,
-//   createAppContainer
-// } from 'react-navigation';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
+import PropTypes from 'prop-types';
 
 const db = firebase.database();
 
-var user, userId, itemsRef, accessData;
+var userName, userId, itemsRef, accessData;
 
 export default class WishScreen extends React.Component {
-  
-  // firebase.auth().onAuthStateChanged( user => {
-  //   if (user) { 
-  //     userId = user.uid;
-  //     itemsRef = db.ref('users/' + userId)
-  //   }
-  // });
-  // userId = user.uid;
+//   static propTypes = {
+//       friend: PropTypes.object.isRequired
+//   };
 
   state = {
     items: []
   }
 
   async componentDidMount() {
-    user = firebase.auth().currentUser;
-    accessData = await AccessToken.getCurrentAccessToken();
-    userId = accessData.getUserId();
+    userId = this.props.navigation.getParam('id', 'NO-ID');
     itemsRef = db.ref('users/' + userId);
     itemsRef.on('value', snapshot => {
-      // let name = snapshot.child("name").val();
-      // let price = snapshot.child("price").val();
       let data = snapshot.val();
       if (data) {
         let items = Object.values(data);
@@ -56,8 +41,10 @@ export default class WishScreen extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => {
+      const name = navigation.getParam('name', 'NO-NAME');
+      const res = name.split(' ', 4);
     return {
-      title: 'My Wishlist',
+      title: res[0] + "'s Wishlist" ,
       headerStyle: {
         backgroundColor: '#ed5f56',
         //paddingHorizontal: 8,
@@ -112,15 +99,8 @@ export default class WishScreen extends React.Component {
         ) : (
             <Text>No items</Text>
           )}
-
-        <Button
-          title="Add item"
-          onPress={() => this.props.navigation.navigate('Add')}
-        />
-
       </View>
     );
   }
 }
 
-//   module.export = WishList;
