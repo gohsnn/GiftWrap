@@ -45,8 +45,6 @@ export default class WishScreen extends React.Component {
     userId = accessData.getUserId();
     itemsRef = db.ref('users/' + userId);
     itemsRef.on('value', snapshot => {
-      // let name = snapshot.child("name").val();
-      // let price = snapshot.child("price").val();
       let data = snapshot.val();
       if (data) {
         let items = Object.values(data);
@@ -108,7 +106,7 @@ export default class WishScreen extends React.Component {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {this.state.items.length > 0 ? (
-          <ItemComponent items={this.state.items} />
+          <ItemComponent items={this.state.items} disableButton = {false} />
         ) : (
             <Text>No items</Text>
           )}

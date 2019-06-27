@@ -45,12 +45,19 @@ export default class AddtoWishlistScreen extends React.Component {
   }
 
  addItem(item, money) {
-  db.ref('users/' + userId).push(
+   let newItemKey = db.ref('users/' + userId).push(
+    {
+      name: 'blank-name',
+      price: 'blank-price',
+      key: 'blank-key'
+    }
+  ).key;
+  return db.ref('users/' + userId + '/' + newItemKey).update(
     {
       name: item,
       price: money,
-      username: name,
-      photo: photoUrl
+      key: newItemKey,
+      photoURL: photoUrl
     }
   );
 };

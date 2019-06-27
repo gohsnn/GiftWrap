@@ -24,9 +24,6 @@ class FriendComponent extends Component {
       </View>
     );
   }
-//   handleFriend(friend) {
-//       this.props.navigation.navigate('Friend', friend);
-//   }
 
 
 }
