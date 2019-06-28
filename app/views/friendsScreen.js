@@ -52,6 +52,7 @@ export default class FriendsScreen extends React.Component {
       });
       // alert(this.state.friends[0].id);
     }
+    alert(this.state.friends[0].name);
   }
 
   componentWillMount() {
