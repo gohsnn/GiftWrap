@@ -48,7 +48,7 @@ export default class ItemComponent extends Component {
 
   handleDelete(key) {
     let uid = this.state.userId;
-    firebase.database().ref('users/' + uid + '/' + key).remove();
+    firebase.database().ref('users/' + uid + '/' + 'wishlist/' + key).remove();
   }
 }
 

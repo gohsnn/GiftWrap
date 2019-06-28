@@ -25,9 +25,10 @@ import {Container,
         Form,
         Right} from "native-base";
 import firebase from 'react-native-firebase';
+import {AccessToken} from 'react-native-fbsdk';
 
 const db = firebase.database();
-var user, uid, name, cat, photoUrl, addItem;
+var user, userId, name, cat, photoUrl, addItem;
 
 export default class AddtoOrganiserScreen extends React.Component {
     constructor(props) {
@@ -37,23 +38,44 @@ export default class AddtoOrganiserScreen extends React.Component {
         };
     }
   
-  componentWillMount() {
+  async componentWillMount() {
     user = firebase.auth().currentUser;
-    uid = user.uid;
-    cat = "organiser";
+    accessData = await AccessToken.getCurrentAccessToken();
+    userId = accessData.getUserId();    
     name = user.displayName; //available
     photoUrl = user.photoURL;
+    cat = "organiser";
   } 
 
  addItem(item, money, person, event, date) {
-  db.ref('users/' + cat + uid).push(
+  // db.ref('users/' + userId + '/' + cat + '/' + userId).push(
+  //   {
+  //     name: item,
+  //     price: money,
+  //     giftee: person,
+  //     event: event,
+  //     username: name,
+  //     photo: photoUrl
+  //   }
+  // );
+  let newItemKey = db.ref('users/' + userId + '/' + cat).push(
+    {
+      name: 'blank-name',
+      price: 'blank-price',
+      key: 'blank-key',
+      giftee: 'blank-giftee',
+      event: 'blank-event',
+      username: 'blank-username'
+    }
+  ).key;
+  return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
     {
       name: item,
       price: money,
+      key: newItemKey,
       giftee: person,
       event: event,
       username: name,
-      photo: photoUrl
     }
   );
 };

@@ -43,7 +43,7 @@ export default class WishScreen extends React.Component {
     user = firebase.auth().currentUser;
     accessData = await AccessToken.getCurrentAccessToken();
     userId = accessData.getUserId();
-    itemsRef = db.ref('users/' + userId);
+    itemsRef = db.ref('users/' + userId + '/' + 'wishlist');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       if (data) {

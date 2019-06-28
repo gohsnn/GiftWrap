@@ -32,7 +32,7 @@ import {AccessToken} from 'react-native-fbsdk';
 
 
 const db = firebase.database();
-var user, userId, name, photoUrl, accessData;
+var user, userId, name, photoUrl, accessData, cat;
 
 export default class AddtoWishlistScreen extends React.Component {
   
@@ -42,17 +42,18 @@ export default class AddtoWishlistScreen extends React.Component {
     userId = accessData.getUserId();    
     name = user.displayName; //available
     photoUrl = user.photoURL;
+    cat = "wishlist";
   } 
 
  addItem(item, money) {
-   let newItemKey = db.ref('users/' + userId).push(
+   let newItemKey = db.ref('users/' + userId + '/' + cat).push(
     {
       name: 'blank-name',
       price: 'blank-price',
       key: 'blank-key'
     }
   ).key;
-  return db.ref('users/' + userId + '/' + newItemKey).update(
+  return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
     {
       name: item,
       price: money,

@@ -12,20 +12,21 @@ import {
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import OrgComponent from '../components/OrgComponent';
 import firebase from 'react-native-firebase';
+import {AccessToken} from 'react-native-fbsdk';
 
 const db = firebase.database();
-var user, cat, userId, orgRef;
+var user, cat, userId, orgRef, accessData;
 
 export default class OrganiserScreen extends React.Component {
   state = {
     items: []
   }
 
-  componentDidMount() {
+  async componentWillMount() {
     user = firebase.auth().currentUser;
-    userId = user.uid;
-    cat = "organiser";
-    itemsRef = db.ref('users/' + cat + userId);
+    accessData = await AccessToken.getCurrentAccessToken();
+    userId = accessData.getUserId();   
+    itemsRef = db.ref('users/' + userId + '/organiser');
     itemsRef.on('value', snapshot => {
       // let name = snapshot.child("name").val();
       // let price = snapshot.child("price").val();
