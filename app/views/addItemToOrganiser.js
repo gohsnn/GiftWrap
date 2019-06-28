@@ -123,9 +123,9 @@ render() {
   return (
     <View>
       <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} placeholder = "Name of Giftee" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Idea" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
         <Form>
             <Picker
             mode="dropdown"

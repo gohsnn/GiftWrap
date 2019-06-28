@@ -67,6 +67,8 @@ state = {
   price: ''
 };
 
+//plan get the state from 
+
 handleChangeName = e => {
   this.setState({
     name: e.nativeEvent.text
@@ -105,8 +107,8 @@ render() {
   return (
     <View>
       <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Name" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"
