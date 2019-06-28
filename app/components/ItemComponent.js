@@ -10,7 +10,7 @@ var user, userId, itemsRef, accessData;
 export default class ItemComponent extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    disableButton: PropTypes.bool.isRequired
+    disableDeleteButton: PropTypes.bool.isRequired
   };
 
   state = {
@@ -34,7 +34,7 @@ export default class ItemComponent extends Component {
               <Text style={styles.itemtext}>{item.name}</Text>
               <Text style={styles.itemtext}>{item.price}</Text>
               {
-                this.props.disableButton ? null :
+                this.props.disableDeleteButton ? null :
                 <Button title="Delete"
                 onPress={() => this.handleDelete(item.key)}
                 />

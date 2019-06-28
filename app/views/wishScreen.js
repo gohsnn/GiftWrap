@@ -106,7 +106,7 @@ export default class WishScreen extends React.Component {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {this.state.items.length > 0 ? (
-          <ItemComponent items={this.state.items} disableButton = {false} />
+          <ItemComponent items={this.state.items} disableDeleteButton = {false} />
         ) : (
             <Text>No items</Text>
           )}
