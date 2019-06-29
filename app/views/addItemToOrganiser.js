@@ -34,7 +34,10 @@ export default class AddtoOrganiserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedEvent: undefined
+          name: '',
+          price: '',
+          giftee: '',
+          selectedEvent: undefined
         };
     }
   
@@ -80,12 +83,12 @@ export default class AddtoOrganiserScreen extends React.Component {
   );
 };
 
-state = {
-  name: '',
-  price: '',
-  giftee: '',
-  event: ''
-};
+// state = {
+//   name: '',
+//   price: '',
+//   giftee: '',
+//   event: ''
+// };
 
 handleChangeGiftee = e => {
     this.setState({
@@ -106,14 +109,14 @@ handleChangePrice = e => {
 };
 
 
-handleChangeEvent = e => {
-    this.setState({
-        event: e.nativeEvent.text
-    });
-}
+// handleChangeEvent = e => {
+//     this.setState({
+//         event: e.nativeEvent.text
+//     });
+// }
 
 handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.event);
+  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent);
   Alert.alert('Item saved successfully');
 };
     
@@ -134,12 +137,14 @@ handleSubmit = () => {
   }
 };
 
-onValueChange(value) {
-    this.setState({
-        selectedEvent: value
-    });
-    this.handleChangeEvent;
-}
+// onValueChange(value) {
+//     this.setState({
+//         selectedEvent: value
+//         // event: value
+//     });
+//     // alert(this.state.event);
+//     this.handleChangeEvent;
+// }
 
 render() {
   return (
@@ -157,15 +162,15 @@ render() {
             placeholderIconColor="#007aff"
             style={{ width: undefined }}
             selectedValue={this.state.selectedEvent}
-            onValueChange={this.onValueChange.bind(this)}
+            onValueChange={(itemValue, itemIndex) => this.setState({selectedEvent: itemValue})}
             >
-              <Picker.Item label="Choose event" value="key0"/>
-              <Picker.Item label="Birthday" value="key1"/>
-              <Picker.Item label="Christmas" value="key2"/>
-              <Picker.Item label="Wedding" value="key3"/>
-              <Picker.Item label="Mother's Day" value="key4"/>
-              <Picker.Item label="Father's Day" value="key5"/>
-              <Picker.Item label="Anniversary" value="key6"/>
+              <Picker.Item label="Choose event" value=""/>
+              <Picker.Item label="Birthday" value="Birthday"/>
+              <Picker.Item label="Christmas" value="Christmas"/>
+              <Picker.Item label="Wedding" value="Wedding"/>
+              <Picker.Item label="Mother's Day" value="Mother's Day"/>
+              <Picker.Item label="Father's Day" value="Father's Day"/>
+              <Picker.Item label="Anniversary" value="Anniversary"/>
             </Picker>
           </Form>
 
