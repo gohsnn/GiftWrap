@@ -35,15 +35,17 @@ class ItemComponent extends Component {
               <Text style={styles.itemtext}>{item.name}</Text>
               <Text style={styles.itemtext}>{item.price}</Text>
               {
-                this.props.disableDeleteButton ? null :
+                (this.props.disableDeleteButton) ? (null) :
                 <Button title="Delete"
                 onPress={() => this.handleDelete(item.key)}
-                />
+                /> 
               }
-              {/* maybe copy paste the same boolean check */}
-              <Button title='Edit' 
+              {
+                (this.props.disableDeleteButton) ? (null) :
+                <Button title="Edit"
                 onPress={() => this.handleEdit(item)}
-              />
+                /> 
+              }
             </View>
           );
         })}
