@@ -43,7 +43,7 @@ export default class WishScreen extends React.Component {
     user = firebase.auth().currentUser;
     accessData = await AccessToken.getCurrentAccessToken();
     userId = accessData.getUserId();
-    itemsRef = db.ref('users/' + userId);
+    itemsRef = db.ref('users/' + userId + '/' + 'wishlist');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
@@ -64,13 +64,8 @@ export default class WishScreen extends React.Component {
       headerTitleStyle: {
         fontWeight: 'bold',
         fontFamily: "Roboto",
-        //position: 'absolute',
         fontSize: 18,
-        //margin: 10,
         textAlign: 'center',
-        //alignSelf: 'center',
-        //justifyContent: 'center',
-        //textAlignVertical: 'center',
         flexGrow: 1,
       },
 
@@ -106,7 +101,7 @@ export default class WishScreen extends React.Component {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {this.state.items.length > 0 ? (
-          <ItemComponent items={this.state.items} disableButton = {false} />
+          <ItemComponent items={this.state.items} disableDeleteButton = {false} />
         ) : (
             <Text>No items</Text>
           )}

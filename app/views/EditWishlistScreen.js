@@ -32,9 +32,9 @@ import {AccessToken} from 'react-native-fbsdk';
 
 
 const db = firebase.database();
-var user, userId, name, photoUrl, accessData, cat, item;
+var user, userId, name, photoUrl, accessData, cat;
 
-export default class AddtoWishlistScreen extends React.Component {
+export default class EditWishlistScreen extends React.Component {
 
   state = {
     name: 'blank-name',
@@ -49,32 +49,29 @@ export default class AddtoWishlistScreen extends React.Component {
     name = user.displayName; //available
     photoUrl = user.photoURL;
     cat = "wishlist";
+    itemName = this.props.navigation.getParam('name', 'Blank-name');
+    itemPrice = this.props.navigation.getParam('price', 'Blank-price');
+    itemKey = this.props.navigation.getParam('key', 'Blank-key');
+    this.setState({
+      name: itemName,
+      price: itemPrice,
+      key: itemKey
+    });
+    // alert(itemName + ' ' + itemKey);
   } 
 
  addItem(item, money) {
-   let newItemKey = db.ref('users/' + userId + '/' + cat).push(
-    {
-      name: 'blank-name',
-      price: 'blank-price',
-      key: 'blank-key'
-    }
-  ).key;
-  return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
+  let key = this.state.key;
+  return db.ref('users/' + userId + '/' + cat + '/' + key).update(
     {
       name: item,
       price: money,
-      key: newItemKey,
+      key: key,
       photoURL: photoUrl
     }
   );
 };
 
-// state = {
-//   name: '',
-//   price: ''
-// };
-
-// //plan get the state from 
 
 handleChangeName = e => {
   this.setState({
@@ -109,13 +106,13 @@ handleSubmit = () => {
     },
   }
 };
-//do an if else to check if item is null or not then render the same textInput accordingly
+
 render() {
   return (
     <View>
       <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Name" />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
+      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"

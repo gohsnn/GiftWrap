@@ -25,45 +25,70 @@ import {Container,
         Form,
         Right} from "native-base";
 import firebase from 'react-native-firebase';
+import {AccessToken} from 'react-native-fbsdk';
 
 const db = firebase.database();
-var user, uid, name, cat, photoUrl, addItem;
+var user, userId, name, cat, photoUrl, addItem;
 
 export default class AddtoOrganiserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedEvent: undefined
+          name: '',
+          price: '',
+          giftee: '',
+          selectedEvent: undefined
         };
     }
   
-  componentWillMount() {
+  async componentWillMount() {
     user = firebase.auth().currentUser;
-    uid = user.uid;
-    cat = "organiser";
+    accessData = await AccessToken.getCurrentAccessToken();
+    userId = accessData.getUserId();    
     name = user.displayName; //available
     photoUrl = user.photoURL;
+    cat = "organiser";
   } 
 
  addItem(item, money, person, event, date) {
-  db.ref('users/' + cat + uid).push(
+  // db.ref('users/' + userId + '/' + cat + '/' + userId).push(
+  //   {
+  //     name: item,
+  //     price: money,
+  //     giftee: person,
+  //     event: event,
+  //     username: name,
+  //     photo: photoUrl
+  //   }
+  // );
+  let newItemKey = db.ref('users/' + userId + '/' + cat).push(
+    {
+      name: 'blank-name',
+      price: 'blank-price',
+      key: 'blank-key',
+      giftee: 'blank-giftee',
+      event: 'blank-event',
+      username: 'blank-username'
+    }
+  ).key;
+  return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
     {
       name: item,
       price: money,
+      key: newItemKey,
       giftee: person,
       event: event,
       username: name,
-      photo: photoUrl
     }
   );
 };
 
-state = {
-  name: '',
-  price: '',
-  giftee: '',
-  event: ''
-};
+// state = {
+//   name: '',
+//   price: '',
+//   giftee: '',
+//   event: ''
+// };
 
 handleChangeGiftee = e => {
     this.setState({
@@ -84,14 +109,14 @@ handleChangePrice = e => {
 };
 
 
-handleChangeEvent = e => {
-    this.setState({
-        event: e.nativeEvent.text
-    });
-}
+// handleChangeEvent = e => {
+//     this.setState({
+//         event: e.nativeEvent.text
+//     });
+// }
 
 handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.event);
+  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent);
   Alert.alert('Item saved successfully');
 };
     
@@ -112,20 +137,22 @@ handleSubmit = () => {
   }
 };
 
-onValueChange(value) {
-    this.setState({
-        selectedEvent: value
-    });
-    this.handleChangeEvent;
-}
+// onValueChange(value) {
+//     this.setState({
+//         selectedEvent: value
+//         // event: value
+//     });
+//     // alert(this.state.event);
+//     this.handleChangeEvent;
+// }
 
 render() {
   return (
     <View>
       <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} placeholder = "Name of Giftee" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Idea" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
         <Form>
             <Picker
             mode="dropdown"
@@ -135,15 +162,15 @@ render() {
             placeholderIconColor="#007aff"
             style={{ width: undefined }}
             selectedValue={this.state.selectedEvent}
-            onValueChange={this.onValueChange.bind(this)}
+            onValueChange={(itemValue, itemIndex) => this.setState({selectedEvent: itemValue})}
             >
-              <Picker.Item label="Choose event" value="key0"/>
-              <Picker.Item label="Birthday" value="key1"/>
-              <Picker.Item label="Christmas" value="key2"/>
-              <Picker.Item label="Wedding" value="key3"/>
-              <Picker.Item label="Mother's Day" value="key4"/>
-              <Picker.Item label="Father's Day" value="key5"/>
-              <Picker.Item label="Anniversary" value="key6"/>
+              <Picker.Item label="Choose event" value=""/>
+              <Picker.Item label="Birthday" value="Birthday"/>
+              <Picker.Item label="Christmas" value="Christmas"/>
+              <Picker.Item label="Wedding" value="Wedding"/>
+              <Picker.Item label="Mother's Day" value="Mother's Day"/>
+              <Picker.Item label="Father's Day" value="Father's Day"/>
+              <Picker.Item label="Anniversary" value="Anniversary"/>
             </Picker>
           </Form>
 
