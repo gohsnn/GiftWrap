@@ -57,7 +57,6 @@ export default class OrganiserScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>So many gifts to buy</Text>
         {this.state.items.length > 0 ? (
           <OrgComponent items={this.state.items} />
         ) : (

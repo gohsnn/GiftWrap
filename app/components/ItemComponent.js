@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
+import { withNavigation } from 'react-navigation';
 
 
 var user, userId, itemsRef, accessData;
 
-export default class ItemComponent extends Component {
+class ItemComponent extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     disableDeleteButton: PropTypes.bool.isRequired
@@ -39,11 +40,19 @@ export default class ItemComponent extends Component {
                 onPress={() => this.handleDelete(item.key)}
                 />
               }
+              {/* maybe copy paste the same boolean check */}
+              <Button title='Edit' 
+                onPress={() => this.handleEdit(item)}
+              />
             </View>
           );
         })}
       </View>
     );
+  }
+
+  handleEdit(item) {
+    this.props.navigation.navigate('Edit', item);
   }
 
   handleDelete(key) {
@@ -66,3 +75,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 });
+
+export default withNavigation(ItemComponent);

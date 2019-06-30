@@ -64,13 +64,8 @@ export default class WishScreen extends React.Component {
       headerTitleStyle: {
         fontWeight: 'bold',
         fontFamily: "Roboto",
-        //position: 'absolute',
         fontSize: 18,
-        //margin: 10,
         textAlign: 'center',
-        //alignSelf: 'center',
-        //justifyContent: 'center',
-        //textAlignVertical: 'center',
         flexGrow: 1,
       },
 
