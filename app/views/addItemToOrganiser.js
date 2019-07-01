@@ -204,20 +204,20 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#ed5f56',
     borderRadius: 8,
-    color: 'red'
+    color: '#ed5f56'
   },
   buttonText: {
     fontSize: 18,
-    color: '#111',
+    color: 'white',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#ed5f56',
+    borderColor: '#ed5f56',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,

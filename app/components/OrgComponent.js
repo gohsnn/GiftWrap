@@ -16,8 +16,8 @@ export default class OrgComponent extends Component {
             <View key={index}>
               <Text style={styles.itemtext}>{item.giftee}</Text>
               <Text style={styles.itemtext}>{item.name}</Text>
-              <Text style={styles.itemtext}>{item.price}</Text>
-              <Text style={styles.itemtext}>{item.even}</Text>
+              <Text style={styles.itemtext}>${item.price}</Text>
+              <Text style={styles.itemtext}>{item.event}</Text>
 
             </View>
           );
