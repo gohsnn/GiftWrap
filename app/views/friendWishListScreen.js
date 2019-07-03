@@ -30,7 +30,7 @@ export default class WishScreen extends React.Component {
 
   async componentDidMount() {
     userId = this.props.navigation.getParam('id', 'NO-ID');
-    itemsRef = db.ref('users/' + userId);
+    itemsRef = db.ref('users/' + userId + '/wishlist');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       if (data) {

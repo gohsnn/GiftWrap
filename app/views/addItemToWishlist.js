@@ -115,7 +115,7 @@ render() {
     <View>
       <Text style={styles.title}>Add Item</Text>
       <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Name" />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
+      <TextInput style={styles.itemInput} keyboardType='numeric' maxLength={6} onChange={this.handleChangePrice} placeholder = "Gift Price" />
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"
@@ -146,20 +146,20 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#ed5f56',
     borderRadius: 8,
     color: 'red'
   },
   buttonText: {
     fontSize: 18,
-    color: '#111',
+    color: 'white',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#ed5f56',
+    borderColor: '#ed5f56',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,

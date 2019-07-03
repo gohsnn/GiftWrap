@@ -116,6 +116,9 @@ handleChangePrice = e => {
 // }
 
 handleSubmit = () => {
+  //get date by calling db.ref with the selectedEvent value
+  //if event is not birthday, just db.ref, if its birthday db.ref(birthday/) + userID
+  //then pass in the date as well
   this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent);
   Alert.alert('Item saved successfully');
 };
@@ -162,7 +165,8 @@ render() {
             placeholderIconColor="#007aff"
             style={{ width: undefined }}
             selectedValue={this.state.selectedEvent}
-            onValueChange={(itemValue, itemIndex) => this.setState({selectedEvent: itemValue})}
+            onValueChange={(itemValue, itemIndex) => 
+            this.setState({selectedEvent: itemValue})}
             >
               <Picker.Item label="Choose event" value=""/>
               <Picker.Item label="Birthday" value="Birthday"/>
@@ -204,20 +208,20 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#ed5f56',
     borderRadius: 8,
-    color: 'red'
+    color: '#ed5f56'
   },
   buttonText: {
     fontSize: 18,
-    color: '#111',
+    color: 'white',
     alignSelf: 'center'
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#ed5f56',
+    borderColor: '#ed5f56',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
