@@ -115,7 +115,7 @@ render() {
     <View>
       <Text style={styles.title}>Add Item</Text>
       <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Name" />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
+      <TextInput style={styles.itemInput} keyboardType='numeric' maxLength={6} onChange={this.handleChangePrice} placeholder = "Gift Price" />
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"
