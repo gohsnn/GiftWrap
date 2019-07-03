@@ -118,7 +118,7 @@ handleChangePrice = e => {
 handleSubmit = () => {
   //get date by calling db.ref with the selectedEvent value
   //if event is not birthday, just db.ref, if its birthday db.ref(birthday/) + userID
-  //then pass in the date as well
+  //then pass in the date as well. 
   this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent);
   Alert.alert('Item saved successfully');
 };
