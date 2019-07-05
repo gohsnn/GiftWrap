@@ -7,8 +7,10 @@ class FriendItemComponent extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     friendID: PropTypes.string,
+    friendName: PropTypes.string
     //friends: PropTypes.array.isRequired,
   };
+
 
   //navigation should also pass friend as params (friendWishlistScreen)
   render() {
@@ -18,7 +20,12 @@ class FriendItemComponent extends Component {
                 return (
                     <View key={index}>
                         <Text style={styles.itemtext}
-                        onPress = {() => this.props.navigation.navigate('AddOrg', item, friendID)}>
+                        onPress = {() => this.props.navigation.navigate('AddOrg', {
+                          gifteeName: this.props.friendName,
+                          id: friendID,
+                          name: item.name,
+                          price: item.price
+                        })}>
                             {item.name}
                         </Text>
                         <Text style={styles.itemtext}>{item.price}</Text>

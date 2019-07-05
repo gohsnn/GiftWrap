@@ -104,9 +104,11 @@ export default class WishScreen extends React.Component {
         {this.state.items.length > 0 ? (
           <FriendItemComponent 
           items={this.state.items}
-          friendID={this.state.friendID} />
+          friendID={this.state.friendID} 
+          friendName = {this.props.navigation.getParam('name', 'NO-NAME')}  
+          />
         ) : (
-          <Text>Your friend doesnt want anything yet</Text>
+          <Text>Your friend doesn't want anything yet</Text>
         )}
       </View>
     );

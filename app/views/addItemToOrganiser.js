@@ -28,7 +28,7 @@ import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
 
 const db = firebase.database();
-var user, userId, name, cat, photoUrl, addItem;
+var user, userId, name, cat, photoUrl, addItem, friendID, giftName, friendName;
 
 export default class AddtoOrganiserScreen extends React.Component {
     constructor(props) {
@@ -48,6 +48,16 @@ export default class AddtoOrganiserScreen extends React.Component {
     name = user.displayName; //available
     photoUrl = user.photoURL;
     cat = "organiser";
+    friendName = await this.props.navigation.getParam('gifteeName', 'no friend name');
+    friendID = await this.props.navigation.getParam('id', 'NO-ID');
+    giftName = await this.props.navigation.getParam('name', 'NO-GIFT-NAME');
+    giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
+    this.setState({
+      name: giftName,
+      price: giftPrice,
+      giftee: friendName
+    })
+    await alert(this.props.navigation.getParam('gifteeName', 'no friend name') + ' ' + friendID + ' ' + giftName + ' ' + giftPrice);
   } 
 
  addItem(item, money, person, event, date) {
@@ -119,6 +129,7 @@ handleSubmit = () => {
   //get date by calling db.ref with the selectedEvent value
   //if event is not birthday, just db.ref, if its birthday db.ref(birthday/) + userID
   //then pass in the date as well
+  
   this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent);
   Alert.alert('Item saved successfully');
 };
@@ -153,9 +164,9 @@ render() {
   return (
     <View>
       <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} placeholder = "Name of Giftee" />
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Idea" />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} placeholder = "Gift Price" />
+      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} value = {this.state.giftee}/>
+      <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
+      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
         <Form>
             <Picker
             mode="dropdown"
