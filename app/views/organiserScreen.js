@@ -63,9 +63,9 @@ export default class OrganiserScreen extends React.Component {
           <Text>Nothing to buy yet</Text>
         )}
 
-        <Button
+        {/* <Button
           title="Add gift idea"
-          onPress={() => this.props.navigation.navigate('AddOrg')} />
+          onPress={() => this.props.navigation.navigate('AddOrg')} /> */}
       </View>
     );
   }

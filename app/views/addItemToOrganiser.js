@@ -37,6 +37,7 @@ export default class AddtoOrganiserScreen extends React.Component {
           name: '',
           price: '',
           giftee: '',
+          gifteeID: '',
           selectedEvent: undefined, 
           date: '0000'
         };
@@ -56,9 +57,10 @@ export default class AddtoOrganiserScreen extends React.Component {
     this.setState({
       name: giftName,
       price: giftPrice,
-      giftee: friendName
+      giftee: friendName,
+      gifteeID: friendID
     })
-    await alert(this.props.navigation.getParam('gifteeName', 'no friend name') + ' ' + friendID + ' ' + giftName + ' ' + giftPrice);
+    // await alert(this.props.navigation.getParam('gifteeName', 'no friend name') + ' ' + friendID + ' ' + giftName + ' ' + giftPrice);
   } 
 
  addItem(item, money, person, event, date) {
@@ -125,13 +127,14 @@ handleChangePrice = e => {
 handleChangeEvent = () => {
   let event  = this.state.selectedEvent;
   if (event == 'birthday') {
-    itemsRef = db.ref('users/' + 'birthdays/' + userId);
+    itemsRef = db.ref('users/' + 'birthdays/' + this.state.gifteeID);
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
         this.setState({
           date: data.date
         });
+        // alert(this.state.gifteeID + ' ' + data.date);
       } 
     });
   } else {
@@ -153,6 +156,8 @@ handleSubmit = () => {
   //then pass in the date as well. 
   this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
   Alert.alert('Item saved successfully');
+  this.props.navigation.navigate('Friend');
+  this.props.navigation.navigate('Organiser');
 };
     
     static navigationOptions = ({ navigation }) => {
