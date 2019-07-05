@@ -18,7 +18,7 @@ export default class OrgComponent extends Component {
               <Text style={styles.itemtext}>{item.name}</Text>
               <Text style={styles.itemtext}>${item.price}</Text>
               <Text style={styles.itemtext}>{item.event}</Text>
-
+              <Text style={styles.itemtext}>{item.date}</Text>
             </View>
           );
         })}
