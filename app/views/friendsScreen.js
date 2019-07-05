@@ -12,9 +12,6 @@ import { GraphRequest, GraphRequestManager, AccessToken} from 'react-native-fbsd
 import firebase from 'react-native-firebase';
 import FriendComponent from '../components/FriendComponent';
 
-
-
-
 export default class FriendsScreen extends React.Component {
   state = {
       friends: [],
@@ -37,7 +34,7 @@ export default class FriendsScreen extends React.Component {
       // alert(accessData.getUserId());
     };
 
-
+ 
    async FBLoginCallback(error, result) {
     if (error) {
       this.setState({

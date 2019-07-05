@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
+import FriendItemComponent from '../components/FriendItemComponent';
 import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
 import PropTypes from 'prop-types';
@@ -23,13 +24,15 @@ export default class WishScreen extends React.Component {
 //   static propTypes = {
 //       friend: PropTypes.object.isRequired
 //   };
-
+ 
   state = {
-    items: []
+    items: [],
+    friendID: ''
   }
 
   async componentDidMount() {
     userId = this.props.navigation.getParam('id', 'NO-ID');
+    friendID = userId;
     itemsRef = db.ref('users/' + userId + '/wishlist');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
@@ -93,6 +96,28 @@ export default class WishScreen extends React.Component {
 
   render() {
     return (
+      <View style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        {this.state.items.length > 0 ? (
+          <FriendItemComponent 
+          items={this.state.items}
+          friendID={this.state.friendID} 
+          friendName = {this.props.navigation.getParam('name', 'NO-NAME')}  
+          />
+        ) : (
+          <Text>Your friend doesn't want anything yet</Text>
+        )}
+      </View>
+    );
+  }
+
+  /*
+  //from friend screen (to be removed later)
+  render() {
+    return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {this.state.items.length > 0 ? (
           <ItemComponent items={this.state.items} disableDeleteButton = {true} />
@@ -101,6 +126,6 @@ export default class WishScreen extends React.Component {
           )}
       </View>
     );
-  }
+  } */
 }
 

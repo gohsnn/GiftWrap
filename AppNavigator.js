@@ -41,12 +41,12 @@ const SettingsStack = createStackNavigator({
   
 const OrganiserStack= createStackNavigator({
   Organiser: { screen: OrganiserScreen},
-  AddOrg: {screen: AddtoOrganiserScreen}
 });
   
 const FriendsStack = createStackNavigator({
   FriendsList: { screen: FriendsScreen},
-  Friend: {screen: friendWishListScreen}
+  Friend: {screen: friendWishListScreen},
+  AddOrg: {screen: AddtoOrganiserScreen}
 });
 
 const TabNavigator = createBottomTabNavigator(

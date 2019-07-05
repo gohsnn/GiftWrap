@@ -7,9 +7,9 @@ class FriendComponent extends Component {
   static propTypes = {
     friends: PropTypes.array.isRequired,
   };
-
+ 
   render() {
-    return (
+    return ( 
       <View style={styles.friendList}>
         {this.props.friends.map((friend, index) => {
           return (
