@@ -37,7 +37,8 @@ export default class AddtoOrganiserScreen extends React.Component {
           name: '',
           price: '',
           giftee: '',
-          selectedEvent: undefined
+          selectedEvent: undefined, 
+          date: '0000'
         };
     }
   
@@ -78,7 +79,8 @@ export default class AddtoOrganiserScreen extends React.Component {
       key: 'blank-key',
       giftee: 'blank-giftee',
       event: 'blank-event',
-      username: 'blank-username'
+      username: 'blank-username',
+      date: 'blank-date'
     }
   ).key;
   return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
@@ -89,6 +91,7 @@ export default class AddtoOrganiserScreen extends React.Component {
       giftee: person,
       event: event,
       username: name,
+      date: date
     }
   );
 };
@@ -119,18 +122,36 @@ handleChangePrice = e => {
 };
 
 
-// handleChangeEvent = e => {
-//     this.setState({
-//         event: e.nativeEvent.text
-//     });
-// }
+handleChangeEvent = () => {
+  let event  = this.state.selectedEvent;
+  if (event == 'birthday') {
+    itemsRef = db.ref('users/' + 'birthdays/' + userId);
+    itemsRef.on('value', snapshot => {
+      let data = snapshot.val();
+      if (data) {
+        this.setState({
+          date: data.date
+        });
+      } 
+    });
+  } else {
+    itemsRef = db.ref('users/' + 'events/' + event);
+    itemsRef.on('value', snapshot => {
+      let data = snapshot.val();
+      if (data) {
+        this.setState({
+          date: data.date
+        });
+      } 
+    });
+  }
+}
 
 handleSubmit = () => {
   //get date by calling db.ref with the selectedEvent value
   //if event is not birthday, just db.ref, if its birthday db.ref(birthday/) + userID
-  //then pass in the date as well
-  
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent);
+  //then pass in the date as well. 
+  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
   Alert.alert('Item saved successfully');
 };
     
@@ -176,16 +197,17 @@ render() {
             placeholderIconColor="#007aff"
             style={{ width: undefined }}
             selectedValue={this.state.selectedEvent}
-            onValueChange={(itemValue, itemIndex) => 
-            this.setState({selectedEvent: itemValue})}
+            onValueChange={ async (itemValue, itemIndex) => {
+            await this.setState({selectedEvent: itemValue});
+            this.handleChangeEvent();
+            } }
             >
               <Picker.Item label="Choose event" value=""/>
-              <Picker.Item label="Birthday" value="Birthday"/>
-              <Picker.Item label="Christmas" value="Christmas"/>
-              <Picker.Item label="Wedding" value="Wedding"/>
-              <Picker.Item label="Mother's Day" value="Mother's Day"/>
-              <Picker.Item label="Father's Day" value="Father's Day"/>
-              <Picker.Item label="Anniversary" value="Anniversary"/>
+              <Picker.Item label="Birthday" value="birthday"/>
+              <Picker.Item label="Christmas" value="christmas"/>
+              <Picker.Item label="Valentine's Day" value="valentine's"/>
+              <Picker.Item label="Mother's Day" value="mother's day"/>
+              <Picker.Item label="Father's Day" value="father's day"/>
             </Picker>
           </Form>
 

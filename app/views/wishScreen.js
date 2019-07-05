@@ -19,7 +19,7 @@ import {
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
-import { AccessToken } from 'react-native-fbsdk';
+import { GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
 
 const db = firebase.database();
 
@@ -27,17 +27,46 @@ var user, userId, itemsRef, accessData;
 
 export default class WishScreen extends React.Component {
   
-  // firebase.auth().onAuthStateChanged( user => {
-  //   if (user) { 
-  //     userId = user.uid;
-  //     itemsRef = db.ref('users/' + userId)
-  //   }
-  // });
-  // userId = user.uid;
-
   state = {
     items: []
   }
+
+  async FBGraphRequest(fields, callback) {
+    const accessData = await AccessToken.getCurrentAccessToken();
+    // Create a graph request asking for user information
+    const infoRequest = new GraphRequest('/me', {
+      accessToken: accessData.accessToken,
+      parameters: {
+        fields: {
+          string: fields
+        }
+      }
+    }, callback.bind(this));
+    // Execute the graph request created above
+    new GraphRequestManager().addRequest(infoRequest).start();
+    // alert(accessData.getUserId());
+  };
+
+
+ async FBLoginCallback(error, result) {
+  if (error) {
+    this.setState({
+      showLoadingModal: false,
+      notificationMessage: I18n.t(welcome.FACEBOOK_GRAPH_REQUEST_ERROR)
+    });
+  } else {
+    accessData = await AccessToken.getCurrentAccessToken();
+    userId = accessData.getUserId();
+    const res = (result.birthday).split('/', 4);
+    const ddmm = res[1] + res[0];
+    return db.ref('users/' + 'birthdays/' + userId).set(
+      {
+        date: ddmm,
+      }
+    );
+  }
+}
+
 
   async componentDidMount() {
     user = firebase.auth().currentUser;
@@ -51,6 +80,7 @@ export default class WishScreen extends React.Component {
         this.setState({ items });
       } 
     });
+    this.FBGraphRequest('birthday', this.FBLoginCallback);
   }
 
   static navigationOptions = ({ navigation }) => {
