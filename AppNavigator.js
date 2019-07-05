@@ -23,11 +23,11 @@ import OrganiserScreen  from "./app/views/organiserScreen";
 import WishScreen  from "./app/views/wishScreen";
 import SignInScreen  from "./app/views/signInScreen";
 import SettingsScreen  from "./app/views/settingsScreen";
-import DetailsScreen from "./app/views/detailsScreen";
 import AddToWishlistScreen from "./app/views/addItemToWishlist";
 import AddtoOrganiserScreen from './app/views/addItemToOrganiser';
 import friendWishListScreen from './app/views/friendWishListScreen';
 import EditWishlistScreen from './app/views/EditWishlistScreen';
+import EditOrganiserScreen from  './app/views/editOrganiserScreen';
 
 const WishStack = createStackNavigator({
   Wishlist: { screen: WishScreen },
@@ -41,7 +41,8 @@ const SettingsStack = createStackNavigator({
   
 const OrganiserStack= createStackNavigator({
   Organiser: { screen: OrganiserScreen},
-  AddOrg: {screen: AddtoOrganiserScreen}
+  AddOrg: {screen: AddtoOrganiserScreen},
+  EditOrg: {screen: EditOrganiserScreen}
 });
   
 const FriendsStack = createStackNavigator({

@@ -28,8 +28,6 @@ export default class OrganiserScreen extends React.Component {
     userId = accessData.getUserId();   
     itemsRef = db.ref('users/' + userId + '/organiser');
     itemsRef.on('value', snapshot => {
-      // let name = snapshot.child("name").val();
-      // let price = snapshot.child("price").val();
       let data = snapshot.val();
       if (data) {
         let items = Object.values(data);
@@ -42,9 +40,9 @@ export default class OrganiserScreen extends React.Component {
       return {
         title: 'My Organiser',
         headerStyle: {
-          backgroundColor: '#ed5f56',
+          backgroundColor: '#fff',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#ed5f56',
         headerTitleStyle: {
           fontWeight: 'bold',
           fontFamily: "Roboto",

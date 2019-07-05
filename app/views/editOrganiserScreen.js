@@ -30,7 +30,7 @@ import {AccessToken} from 'react-native-fbsdk';
 const db = firebase.database();
 var user, userId, name, cat, photoUrl, addItem, friendID, giftName, friendName;
 
-export default class AddtoOrganiserScreen extends React.Component {
+export default class EditOrganiserScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,7 +39,8 @@ export default class AddtoOrganiserScreen extends React.Component {
           giftee: '',
           gifteeID: '',
           selectedEvent: undefined, 
-          date: '0000'
+          date: '0000',
+          key: ''
         };
     }
   
@@ -50,47 +51,28 @@ export default class AddtoOrganiserScreen extends React.Component {
     name = user.displayName; //available
     photoUrl = user.photoURL;
     cat = "organiser";
-    friendName = await this.props.navigation.getParam('gifteeName', 'no friend name');
-    friendID = await this.props.navigation.getParam('id', 'NO-ID');
+    friendName = await this.props.navigation.getParam('giftee', 'NO-FRIEND-NAME');
+    friendID = await this.props.navigation.getParam('gifteeID', 'NO-GIFTEE-ID');
     giftName = await this.props.navigation.getParam('name', 'NO-GIFT-NAME');
     giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
+    date = await this.props.navigation.getParam('date', 'NO-GIFT-DATE');
+    key = await this.props.navigation.getParam('key', 'NO-KEY');
     this.setState({
       name: giftName,
       price: giftPrice,
       giftee: friendName,
-      gifteeID: friendID
+      gifteeID: friendID,
+      key: key
     })
-    // await alert(this.props.navigation.getParam('gifteeName', 'no friend name') + ' ' + friendID + ' ' + giftName + ' ' + giftPrice);
   } 
 
  addItem(item, money, person, event, date) {
-  // db.ref('users/' + userId + '/' + cat + '/' + userId).push(
-  //   {
-  //     name: item,
-  //     price: money,
-  //     giftee: person,
-  //     event: event,
-  //     username: name,
-  //     photo: photoUrl
-  //   }
-  // );
-  let newItemKey = db.ref('users/' + userId + '/' + cat).push(
-    {
-      name: 'blank-name',
-      price: 'blank-price',
-      key: 'blank-key',
-      giftee: 'blank-giftee',
-      event: 'blank-event',
-      username: 'blank-username',
-      date: 'blank-date',
-      gifteeID: 'blank-giftee-id'
-    }
-  ).key;
-  return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
+  let itemKey = this.state.key;
+  return db.ref('users/' + userId + '/' + cat + '/' + itemKey).update(
     {
       name: item,
       price: money,
-      key: newItemKey,
+      key: itemKey,
       giftee: person,
       event: event,
       username: name,
@@ -153,12 +135,8 @@ handleChangeEvent = () => {
 }
 
 handleSubmit = () => {
-  //get date by calling db.ref with the selectedEvent value
-  //if event is not birthday, just db.ref, if its birthday db.ref(birthday/) + userID
-  //then pass in the date as well. 
   this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
   Alert.alert('Item saved successfully');
-  this.props.navigation.navigate('Friend');
   this.props.navigation.navigate('Organiser');
 };
     
@@ -179,19 +157,10 @@ handleSubmit = () => {
   }
 };
 
-// onValueChange(value) {
-//     this.setState({
-//         selectedEvent: value
-//         // event: value
-//     });
-//     // alert(this.state.event);
-//     this.handleChangeEvent;
-// }
 
 render() {
   return (
     <View>
-      <Text style={styles.title}>Add Item</Text>
       <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} value = {this.state.giftee}/>
       <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
       <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
