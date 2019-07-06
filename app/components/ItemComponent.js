@@ -32,18 +32,15 @@ class ItemComponent extends Component {
         {this.props.items.map((item, index) => {
           return (
             <View key={index}>
-              <Text style={styles.itemtext}>{item.name}</Text>
-              <Text style={styles.itemtext}>${item.price}</Text>
+              <Text onPress = {() => this.handleEdit(item)}>
+                <Text style={styles.itemtext}>{item.name + ' '}</Text>
+                <Text style={styles.itemtext}>${item.price}</Text>
+              </Text>
+              
               {
                 (this.props.disableDeleteButton) ? (null) :
                 <Button title="Delete"
                 onPress={() => this.handleDelete(item.key)}
-                /> 
-              }
-              {
-                (this.props.disableDeleteButton) ? (null) :
-                <Button title="Edit"
-                onPress={() => this.handleEdit(item)}
                 /> 
               }
             </View>

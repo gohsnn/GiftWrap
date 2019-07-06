@@ -94,9 +94,9 @@ handleSubmit = () => {
   return {
     title: 'Add Item to Wishlist',
     headerStyle: {
-      backgroundColor: '#ed5f56',
+      backgroundColor: '#fff',
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#ed5f56',
     headerTitleStyle: {
       fontWeight: 'bold',
       fontFamily: "Roboto",
