@@ -35,6 +35,8 @@ class FriendItemComponent extends Component {
               })}
           </View>
       );
+      
+      
   }
   
 

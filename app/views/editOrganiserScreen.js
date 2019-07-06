@@ -118,7 +118,6 @@ handleChangeEvent = () => {
         this.setState({
           date: data.date
         });
-        // alert(this.state.gifteeID + ' ' + data.date);
       } 
     });
   } else {
