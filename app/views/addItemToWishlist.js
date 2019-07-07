@@ -64,7 +64,8 @@ export default class AddtoWishlistScreen extends React.Component {
       name: item,
       price: money,
       key: newItemKey,
-      photoURL: photoUrl
+      photoURL: photoUrl,
+      buyer: undefined
     }
   );
 };
@@ -105,6 +106,9 @@ handleSubmit = () => {
     title: 'Add Item to Wishlist',
     headerStyle: {
       backgroundColor: '#fff',
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomWidth: 0,
     },
     headerTintColor: '#ed5f56',
     headerTitleStyle: {
@@ -112,7 +116,7 @@ handleSubmit = () => {
       fontFamily: "Roboto",
       fontSize: 18,
       textAlign: 'center',
-      flexGrow: 1,
+      width: '80%',
     },
   }
 };

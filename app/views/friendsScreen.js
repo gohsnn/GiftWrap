@@ -56,9 +56,13 @@ export default class FriendsScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
       return {
-        title: 'My Friends',
+        title: 'Friends',
         headerStyle: {
           backgroundColor: '#fff',
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+          
         },
         headerTintColor: '#ed5f56',
         headerTitleStyle: {

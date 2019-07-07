@@ -141,9 +141,12 @@ handleSubmit = () => {
     
     static navigationOptions = ({ navigation }) => {
   return {
-    title: 'Add Gift to Organiser',
+    title: 'Edit',
     headerStyle: {
       backgroundColor: '#fff',
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomWidth: 0,
     },
     headerTintColor: '#ed5f56',
     headerTitleStyle: {
@@ -151,7 +154,7 @@ handleSubmit = () => {
       fontFamily: "Roboto",
       fontSize: 18,
       textAlign: 'center',
-      flexGrow: 1,
+      width: '75%',
     },
   }
 };
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
   },
   itemInput: {
     height: 50,
-    padding: 4,
+    padding: 5,
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,

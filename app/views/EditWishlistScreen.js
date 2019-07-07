@@ -99,9 +99,12 @@ handleSubmit = () => {
     
     static navigationOptions = ({ navigation }) => {
   return {
-    title: 'Add Item to Wishlist',
+    title: 'Edit',
     headerStyle: {
       backgroundColor: '#fff',
+      elevation: 0,
+      shadowOpacity: 0,
+      borderBottomWidth: 0,
     },
     headerTintColor: '#ed5f56',
     headerTitleStyle: {
@@ -109,7 +112,7 @@ handleSubmit = () => {
       fontFamily: "Roboto",
       fontSize: 18,
       textAlign: 'center',
-      flexGrow: 1,
+      width: '75%',
     },
   }
 };
@@ -117,7 +120,7 @@ handleSubmit = () => {
 render() {
   return (
     <View>
-      <Text style={styles.title}>Add Item</Text>
+      <Text></Text>
       <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
       <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
       <TouchableHighlight
