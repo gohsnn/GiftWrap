@@ -88,6 +88,7 @@ handleChangePrice = e => {
 handleSubmit = () => {
   this.addItem(this.state.name, this.state.price);
   Alert.alert(
+    'Edit Item',
     'Item saved successfully',
     [
       {text: 'OK', onPress: () => this.props.navigation.navigate('Wishlist')},
