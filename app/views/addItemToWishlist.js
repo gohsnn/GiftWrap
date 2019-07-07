@@ -64,7 +64,8 @@ export default class AddtoWishlistScreen extends React.Component {
       name: item,
       price: money,
       key: newItemKey,
-      photoURL: photoUrl
+      photoURL: photoUrl,
+      buyer: undefined
     }
   );
 };
@@ -112,7 +113,7 @@ handleSubmit = () => {
       fontFamily: "Roboto",
       fontSize: 18,
       textAlign: 'center',
-      flexGrow: 1,
+      width: '80%',
     },
   }
 };

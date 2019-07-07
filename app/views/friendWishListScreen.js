@@ -47,7 +47,7 @@ export default class WishScreen extends React.Component {
       const name = navigation.getParam('name', 'NO-NAME');
       const res = name.split(' ', 4);
     return {
-      title: res[0] + "'s Wishlist" ,
+      title: res[0] + ' ' + res[1] + "'s Wishlist" ,
       headerStyle: {
         backgroundColor: '#fff',
         //paddingHorizontal: 8,
@@ -60,10 +60,10 @@ export default class WishScreen extends React.Component {
         fontSize: 18,
         //margin: 10,
         textAlign: 'center',
-        //alignSelf: 'center',
-        //justifyContent: 'center',
-        //textAlignVertical: 'center',
-        flexGrow: 1,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        width: '80%',
+        // flex: 1,
       },
 
       /*

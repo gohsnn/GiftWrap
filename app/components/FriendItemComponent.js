@@ -19,17 +19,25 @@ class FriendItemComponent extends Component {
               {this.props.items.map((item, index) => {
                 return (
                     <View key={index}>
-                        <Text style={styles.itemtext}
+                    { (item.bought == undefined) ? 
+                    (<View>
+                      <Text style={styles.itemtext}
                         onPress = {() => this.props.navigation.navigate('AddOrg', {
                           gifteeName: this.props.friendName,
                           id: friendID,
                           name: item.name,
-                          price: item.price
+                          price: item.price,
+                          gifteeWishlistKey: item.key
                         })}>
                             {item.name}
                         </Text>
                         <Text style={styles.itemtext}>{item.price}</Text>
-                        <Text></Text>
+                    </View>) :
+                    (<View>
+                    <Text>{item.bought} is buying the {item.name}</Text>
+                    <Text></Text>
+                    </View>)
+                    }
                     </View>
                 );
               })}

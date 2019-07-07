@@ -54,26 +54,17 @@ export default class AddtoOrganiserScreen extends React.Component {
     friendID = await this.props.navigation.getParam('id', 'NO-ID');
     giftName = await this.props.navigation.getParam('name', 'NO-GIFT-NAME');
     giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
+    gifteeWishlistKey = await this.props.navigation.getParam('gifteeWishlistKey', 'NO-GIFTEE-WISHLIST-KEY');
     this.setState({
       name: giftName,
       price: giftPrice,
       giftee: friendName,
-      gifteeID: friendID
+      gifteeID: friendID,
+      gifteeWishlistKey: gifteeWishlistKey
     })
-    // await alert(this.props.navigation.getParam('gifteeName', 'no friend name') + ' ' + friendID + ' ' + giftName + ' ' + giftPrice);
   } 
 
  addItem(item, money, person, event, date) {
-  // db.ref('users/' + userId + '/' + cat + '/' + userId).push(
-  //   {
-  //     name: item,
-  //     price: money,
-  //     giftee: person,
-  //     event: event,
-  //     username: name,
-  //     photo: photoUrl
-  //   }
-  // );
   let newItemKey = db.ref('users/' + userId + '/' + cat).push(
     {
       name: 'blank-name',
@@ -83,7 +74,8 @@ export default class AddtoOrganiserScreen extends React.Component {
       event: 'blank-event',
       username: 'blank-username',
       date: 'blank-date',
-      gifteeID: 'blank-giftee-id'
+      gifteeID: 'blank-giftee-id',
+      gifteeWishlistKey: 'blank-giftee-wishlist-key'
     }
   ).key;
   return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
@@ -95,10 +87,17 @@ export default class AddtoOrganiserScreen extends React.Component {
       event: event,
       username: name,
       date: date,
-      gifteeID: this.state.gifteeID
+      gifteeID: this.state.gifteeID,
+      gifteeWishlistKey: this.state.gifteeWishlistKey
     }
   );
 };
+  reserveItem() {
+    // alert(this.state.gifteeID + ' ' + this.state.gifteeWishlistKey);
+    return db.ref('users/' + this.state.gifteeID + '/' + 'wishlist/' + this.state.gifteeWishlistKey).update(
+      {bought: name}
+    );
+  }
 
 // state = {
 //   name: '',
@@ -136,7 +135,6 @@ handleChangeEvent = () => {
         this.setState({
           date: data.date
         });
-        // alert(this.state.gifteeID + ' ' + data.date);
       } 
     });
   } else {
@@ -152,11 +150,13 @@ handleChangeEvent = () => {
   }
 }
 
-handleSubmit = () => {
-  //get date by calling db.ref with the selectedEvent value
-  //if event is not birthday, just db.ref, if its birthday db.ref(birthday/) + userID
-  //then pass in the date as well. 
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+handleSubmit = async () => {
+  //plan: pass the information down as params for the friend.
+  //information to pass down would be the item id? 
+  //or maybe instead update on the actual item itself whether it is bought or not as a 1 or 0? 
+  //or maybe save who is buying the gift, if no one it'll be a specific value like   
+  await this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+  await this.reserveItem();
   Alert.alert('Item saved successfully');
   this.props.navigation.navigate('Friend');
   this.props.navigation.navigate('Organiser');
@@ -174,7 +174,7 @@ handleSubmit = () => {
       fontFamily: "Roboto",
       fontSize: 18,
       textAlign: 'center',
-      flexGrow: 1,
+      width: '80%',
     },
   }
 };
