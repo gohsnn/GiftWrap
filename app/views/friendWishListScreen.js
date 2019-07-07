@@ -50,6 +50,9 @@ export default class WishScreen extends React.Component {
       title: res[0] + ' ' + res[1] + "'s Wishlist" ,
       headerStyle: {
         backgroundColor: '#fff',
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,
         //paddingHorizontal: 8,
       },
       headerTintColor: '#ed5f56',

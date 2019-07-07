@@ -85,9 +85,12 @@ export default class WishScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'My Wishlist',
+      title: 'Wishlist',
       headerStyle: {
         backgroundColor: '#fff',
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,
         //paddingHorizontal: 8,
       },
       headerTintColor: '#ed5f56',
@@ -96,8 +99,15 @@ export default class WishScreen extends React.Component {
         fontFamily: "Roboto",
         fontSize: 18,
         textAlign: 'center',
-        flexGrow: 1,
+        width: '110%',
+        
       },
+      headerRight:(
+      <Button
+      color = '#ed5f56'
+      title= "+"
+      onPress={() => navigation.navigate('Add')}
+      />),
 
       /*
       headerRight: (
@@ -136,10 +146,10 @@ export default class WishScreen extends React.Component {
             <Text>No items</Text>
           )}
 
-        <Button
+        {/* <Button
           title="Add item"
           onPress={() => this.props.navigation.navigate('Add')}
-        />
+        /> */}
 
       </View>
     );
