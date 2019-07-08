@@ -95,7 +95,7 @@ export default class AddtoOrganiserScreen extends React.Component {
   reserveItem() {
     // alert(this.state.gifteeID + ' ' + this.state.gifteeWishlistKey);
     return db.ref('users/' + this.state.gifteeID + '/' + 'wishlist/' + this.state.gifteeWishlistKey).update(
-      {bought: name}
+      {buyer: name}
     );
   }
 

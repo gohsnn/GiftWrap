@@ -40,7 +40,8 @@ export default class EditOrganiserScreen extends React.Component {
           gifteeID: '',
           selectedEvent: undefined, 
           date: '0000',
-          key: ''
+          key: '',
+          bought: 0
         };
     }
   
@@ -66,7 +67,7 @@ export default class EditOrganiserScreen extends React.Component {
     })
   } 
 
- addItem(item, money, person, event, date) {
+ addItem(item, money, person, event, date, bought) {
   let itemKey = this.state.key;
   return db.ref('users/' + userId + '/' + cat + '/' + itemKey).update(
     {
@@ -77,7 +78,8 @@ export default class EditOrganiserScreen extends React.Component {
       event: event,
       username: name,
       date: date,
-      gifteeID: this.state.gifteeID
+      gifteeID: this.state.gifteeID,
+      bought: bought
     }
   );
 };
@@ -132,12 +134,17 @@ handleChangeEvent = () => {
     });
   }
 }
+handleBought = () => {
+    this.setState({bought: 1}); 
+};
 
 handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date, this.state.bought);
   Alert.alert('Item saved successfully');
   this.props.navigation.navigate('Organiser');
 };
+
+
     
     static navigationOptions = ({ navigation }) => {
   return {
@@ -194,8 +201,17 @@ render() {
         underlayColor="red"
         onPress={this.handleSubmit}
       >
-        <Text style={styles.buttonText}>Add</Text>
+        <Text style={styles.buttonText}>Done</Text>
       </TouchableHighlight>
+      
+      <TouchableHighlight
+        style={styles.button}
+        underlayColor="red"
+        onPress={this.handleBought}
+      >
+        <Text style={styles.buttonText}>Bought?</Text>
+      </TouchableHighlight>
+
     </View>
   );
 }

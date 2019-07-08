@@ -17,10 +17,7 @@ import firebase from 'react-native-firebase';
 var user, name, photoUrl, email;
 
 export default class SettingsScreen extends React.Component {
-  // user = 'blank-user';
-  // name = 'blank-name';
-  // photoUrl = 'blank-photo';
-  // email = 'blank-email';
+
 
   componentWillMount() {
     user = firebase.auth().currentUser;
