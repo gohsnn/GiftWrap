@@ -66,8 +66,8 @@ export default class FriendsScreen extends React.Component {
         },
         headerTintColor: '#ed5f56',
         headerTitleStyle: {
-          fontWeight: 'bold',
-          fontFamily: "Roboto",
+          fontWeight: "200",
+          fontFamily: "Nunito-Bold",
           fontSize: 18,
           textAlign: 'center',
           flexGrow: 1,

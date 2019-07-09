@@ -16,6 +16,11 @@ import { LoginButton, LoginManager, AccessToken } from 'react-native-fbsdk';
 export default class SignInScreen extends React.Component {
     static navigationOptions = {
       title: 'Please sign in',
+      headerTitleStyle: {
+        fontWeight: "200",
+        fontFamily: "Nunito-Bold",
+        fontSize: 18,
+      },
     };
   
     render() {

@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   itemtext: {
     fontSize: 12,
+    fontFamily: 'Nunito-Regular',
     fontWeight: 'normal',
     textAlign: 'center'
   }

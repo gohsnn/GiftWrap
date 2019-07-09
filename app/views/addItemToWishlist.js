@@ -112,8 +112,8 @@ handleSubmit = () => {
     },
     headerTintColor: '#ed5f56',
     headerTitleStyle: {
-      fontWeight: 'bold',
-      fontFamily: "Roboto",
+      fontWeight: "200",
+      fontFamily: "Nunito-Bold",
       fontSize: 18,
       textAlign: 'center',
       width: '80%',

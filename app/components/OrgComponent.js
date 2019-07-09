@@ -30,7 +30,7 @@ class OrgComponent extends Component {
               <Text style={styles.itemtext}>{item.name + ' '}</Text>
               <Text style={styles.itemtext}>${item.price + ' '}</Text>
               <Text style={styles.itemtext}>{item.event}</Text>
-              {item.bought == 1 ? <Text> Bought</Text> : (null) }
+              {item.bought == true ? <Text> Bought</Text> : (null) }
             </Text>
             <Button title = 'Delete' onPress={() => this.handleDelete(item.key)}/>
             </View>
