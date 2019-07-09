@@ -11,6 +11,7 @@ import {
   TouchableHighlight,
   Alert, 
   View,
+  Switch
 } from 'react-native';
 import {Container, 
         Input, 
@@ -40,7 +41,8 @@ export default class EditOrganiserScreen extends React.Component {
           gifteeID: '',
           selectedEvent: undefined, 
           date: '0000',
-          key: ''
+          key: '',
+          bought: false
         };
     }
   
@@ -48,7 +50,7 @@ export default class EditOrganiserScreen extends React.Component {
     user = firebase.auth().currentUser;
     accessData = await AccessToken.getCurrentAccessToken();
     userId = accessData.getUserId();    
-    name = user.displayName; //available
+    name = user.displayName; 
     photoUrl = user.photoURL;
     cat = "organiser";
     friendName = await this.props.navigation.getParam('giftee', 'NO-FRIEND-NAME');
@@ -57,16 +59,18 @@ export default class EditOrganiserScreen extends React.Component {
     giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
     date = await this.props.navigation.getParam('date', 'NO-GIFT-DATE');
     key = await this.props.navigation.getParam('key', 'NO-KEY');
+    bought = await this.props.navigation.getParam('bought', 'NO-BOUGHT');
     this.setState({
       name: giftName,
       price: giftPrice,
       giftee: friendName,
       gifteeID: friendID,
-      key: key
+      key: key,
+      bought: bought
     })
   } 
 
- addItem(item, money, person, event, date) {
+ addItem(item, money, person, event, date, bought) {
   let itemKey = this.state.key;
   return db.ref('users/' + userId + '/' + cat + '/' + itemKey).update(
     {
@@ -77,7 +81,8 @@ export default class EditOrganiserScreen extends React.Component {
       event: event,
       username: name,
       date: date,
-      gifteeID: this.state.gifteeID
+      gifteeID: this.state.gifteeID,
+      bought: bought
     }
   );
 };
@@ -132,12 +137,22 @@ handleChangeEvent = () => {
     });
   }
 }
+handleBought = () => {
+    this.setState({bought: 1}); 
+};
+
+toggleBought = (value) => {
+    this.setState({bought: value}); 
+};
+
 
 handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date, this.state.bought);
   Alert.alert('Item saved successfully');
   this.props.navigation.navigate('Organiser');
 };
+
+
     
     static navigationOptions = ({ navigation }) => {
   return {
@@ -150,8 +165,8 @@ handleSubmit = () => {
     },
     headerTintColor: '#ed5f56',
     headerTitleStyle: {
-      fontWeight: 'bold',
-      fontFamily: "Roboto",
+      fontWeight: "200",
+      fontFamily: "Nunito-Bold",
       fontSize: 18,
       textAlign: 'center',
       width: '75%',
@@ -189,13 +204,19 @@ render() {
             </Picker>
           </Form>
 
+      <View style = {styles.main}>
+        <Text style = {styles.text}>Bought</Text>
+        <Switch thumbColor={'#F7F7F7'} trackColor={{true: '#ed5f56'}} onValueChange={this.toggleBought} value={this.state.bought}/>
+      </View>
+
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"
         onPress={this.handleSubmit}
       >
-        <Text style={styles.buttonText}>Add</Text>
+        <Text style={styles.buttonText}>Done</Text>
       </TouchableHighlight>
+      
     </View>
   );
 }
@@ -203,15 +224,12 @@ render() {
 const styles = StyleSheet.create({
   main: {
     flex: 1,
-    padding: 30,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#6565fc'
+    alignItems: 'center',
   },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center'
+  text: {
+    fontSize: 15,
+    color: 'grey',
+    alignSelf: 'center'
   },
   itemInput: {
     height: 50,
@@ -236,7 +254,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 55,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }

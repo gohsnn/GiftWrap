@@ -57,8 +57,8 @@ export default class WishScreen extends React.Component {
       },
       headerTintColor: '#ed5f56',
       headerTitleStyle: {
-        fontWeight: 'bold',
-        fontFamily: "Roboto",
+        fontWeight: "200",
+        fontFamily: "Nunito-Bold",
         //position: 'absolute',
         fontSize: 18,
         //margin: 10,

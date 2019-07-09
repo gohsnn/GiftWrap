@@ -95,7 +95,7 @@ export default class AddtoOrganiserScreen extends React.Component {
   reserveItem() {
     // alert(this.state.gifteeID + ' ' + this.state.gifteeWishlistKey);
     return db.ref('users/' + this.state.gifteeID + '/' + 'wishlist/' + this.state.gifteeWishlistKey).update(
-      {bought: name}
+      {buyer: name}
     );
   }
 
@@ -173,8 +173,8 @@ handleSubmit = async () => {
     },
     headerTintColor: '#ed5f56',
     headerTitleStyle: {
-      fontWeight: 'bold',
-      fontFamily: "Roboto",
+      fontWeight: "200",
+      fontFamily: "Nunito-Bold",
       fontSize: 18,
       textAlign: 'center',
       width: '80%',
