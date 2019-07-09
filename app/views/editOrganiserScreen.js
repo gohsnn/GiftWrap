@@ -204,6 +204,11 @@ render() {
             </Picker>
           </Form>
 
+      <View style = {styles.main}>
+        <Text style = {styles.text}>Bought</Text>
+        <Switch thumbColor={'#F7F7F7'} trackColor={{true: '#ed5f56'}} onValueChange={this.toggleBought} value={this.state.bought}/>
+      </View>
+
       <TouchableHighlight
         style={styles.button}
         underlayColor="red"
@@ -212,12 +217,6 @@ render() {
         <Text style={styles.buttonText}>Done</Text>
       </TouchableHighlight>
       
-      
-      <View style = {styles.main}>
-        <Text style = {styles.text}>Bought</Text>
-        <Switch thumbColor={'#F7F7F7'} trackColor={{true: '#ed5f56'}} onValueChange={this.toggleBought} value={this.state.bought}/>
-      </View>
-
     </View>
   );
 }
@@ -255,7 +254,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
-    marginTop: 10,
+    marginTop: 55,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }
