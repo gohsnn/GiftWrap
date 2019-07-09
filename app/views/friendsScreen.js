@@ -83,11 +83,6 @@ export default class FriendsScreen extends React.Component {
           justifyContent: 'flex-start', 
           alignItems: 'flex-start' }}>
             <Text></Text>
-            <Text style={{
-              fontSize: 18,
-              fontWeight:'bold'}}
-            >     Whose wishlist would you like to see?
-            </Text>
             {this.state.friends.length > 0 ? (
           <FriendComponent friends={this.state.friends}/>
         ) : (

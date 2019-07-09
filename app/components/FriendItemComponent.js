@@ -34,7 +34,7 @@ class FriendItemComponent extends Component {
                         <Text style={styles.itemtext}>{item.price}</Text>
                     </View>) :
                     (<View>
-                    <Text>{item.bought} is buying the {item.name}</Text>
+                    <Text style={styles.itemtext}>{item.bought} is buying the {item.name}</Text>
                     <Text></Text>
                     </View>)
                     }
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   itemtext: {
+    fontFamily: 'Nunito-Regular',
     fontSize: 15,
     fontWeight: 'normal',
     textAlign: 'center'

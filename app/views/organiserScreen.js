@@ -27,7 +27,7 @@ export default class OrganiserScreen extends React.Component {
     accessData = await AccessToken.getCurrentAccessToken();
     userId = accessData.getUserId();   
     itemsRef = db.ref('users/' + userId + '/organiser');
-    itemsRef.on('value', snapshot => {
+    itemsRef.orderByChild("date").on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
         let items = Object.values(data);

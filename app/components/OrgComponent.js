@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   itemtext: {
+    fontFamily: 'Nunito-Regular',
     fontSize: 12,
     fontWeight: 'normal',
     textAlign: 'center'
