@@ -30,7 +30,7 @@ export default class OrganiserScreen extends React.Component {
     itemsRef.orderByChild("date").on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
-        let items = Object.values(data);
+        let items = Object.values(data).reverse();
         this.setState({ items });
       } 
     });
@@ -63,13 +63,11 @@ export default class OrganiserScreen extends React.Component {
         ) : (
           <Text>Nothing to buy yet</Text>
         )}
-
-        {/* <Button
-          title="Add gift idea"
-          onPress={() => this.props.navigation.navigate('AddOrg')} /> */}
       </View>
     );
   }
+  
+  
 }
 
 //   module.export = Organiser;
