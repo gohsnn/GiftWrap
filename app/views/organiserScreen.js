@@ -7,6 +7,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  SectionList
 } from 'react-native';
 // import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
@@ -27,14 +28,32 @@ export default class OrganiserScreen extends React.Component {
     accessData = await AccessToken.getCurrentAccessToken();
     userId = accessData.getUserId();   
     itemsRef = db.ref('users/' + userId + '/organiser');
-    itemsRef.orderByChild("date").on('value', snapshot => {
+    await itemsRef.orderByKey().on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
         let items = Object.values(data).reverse();
-        this.setState({ items });
-      } 
+        let keys = Object.keys(data).reverse();
+        // alert(JSON.stringify(keys));
+        this.setState(
+          { 
+            items: items,
+            dates: keys
+          });
+      }  
     });
   }
+
+  convertFormat(items, dates) {
+    newArr = [];
+    for (i=0; i < items.length; i++){
+      newArr.push({
+        title: dates[i], 
+        data: Object.values(items[i])
+      });
+    }
+    return newArr;
+  } 
+
 
   static navigationOptions = ({ navigation }) => {
       return {
@@ -55,13 +74,25 @@ export default class OrganiserScreen extends React.Component {
         },
       }
   };
+
+  handleDelete(key) {
+    let uid = this.state.userId;
+    firebase.database().ref('users/' + uid + '/' + 'organiser/' + key).remove();
+  }
+
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         {this.state.items.length > 0 ? (
-          <OrgComponent items={this.state.items} />
+          <SectionList
+          sections={this.convertFormat(this.state.items, this.state.dates)}
+          renderItem = {({item}) =>  
+          <OrgComponent item = {item}/>}
+          renderSectionHeader={({section}) => <Text style= {styles.headers}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+          />
         ) : (
-          <Text>Nothing to buy yet</Text>
+          <Text>Nothing to buy yet</Text> 
         )}
       </View>
     );
@@ -69,5 +100,16 @@ export default class OrganiserScreen extends React.Component {
   
   
 }
+
+const styles = StyleSheet.create({
+  headers: {
+    fontFamily: 'Nunito-Bold',
+    color: '#ED5F56',
+    fontSize: 18, 
+    paddingTop: 10
+  },
+});
+
+
 
 //   module.export = Organiser;

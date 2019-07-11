@@ -59,6 +59,7 @@ export default class WishScreen extends React.Component {
     userId = accessData.getUserId();
     const res = (result.birthday).split('/', 4);
     const mmdd = res[0] + res[1];
+    // alert(JSON.stringify(mmdd))
     return db.ref('users/' + 'birthdays/' + userId).set(
       {
         date: mmdd,
