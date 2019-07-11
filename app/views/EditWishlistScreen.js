@@ -29,6 +29,7 @@ import {
 // import { db } from "../config";
 import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const db = firebase.database();
@@ -123,13 +124,13 @@ render() {
       <Text></Text>
       <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
       <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.button}
-        underlayColor="red"
+        // underlayColor="red"
         onPress={this.handleSubmit}
       >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableHighlight>
+        <Text style={styles.buttonText}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -153,20 +154,22 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 23,
     borderWidth: 1,
-    borderColor: 'red',
+    borderColor: '#E4E4E4',
     borderRadius: 8,
-    color: 'red'
+    color: '#646464'
   },
   buttonText: {
-    fontSize: 18,
-    color: '#111',
-    alignSelf: 'center'
+    fontFamily: 'Nunito-Light',
+    fontSize: 28,
+    color: '#ED5F56',
+    alignSelf: 'center',
+    marginBottom: 5
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    borderColor: 'red',
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,

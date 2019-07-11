@@ -19,7 +19,7 @@ class FriendItemComponent extends Component {
               {this.props.items.map((item, index) => {
                 return (
                     <View key={index}>
-                    { (item.bought == undefined) ? 
+                    { (item.buyer == undefined) ? 
                     (<View>
                       <Text style={styles.itemtext}
                         onPress = {() => this.props.navigation.navigate('AddOrg', {
@@ -34,7 +34,7 @@ class FriendItemComponent extends Component {
                         <Text style={styles.itemtext}>{item.price}</Text>
                     </View>) :
                     (<View>
-                    <Text>{item.bought} is buying the {item.name}</Text>
+                    <Text style={styles.itemtext}>{item.buyer} is buying the {item.name}</Text>
                     <Text></Text>
                     </View>)
                     }
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   itemtext: {
+    fontFamily: 'Nunito-Regular',
     fontSize: 15,
     fontWeight: 'normal',
     textAlign: 'center'

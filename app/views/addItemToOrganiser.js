@@ -65,7 +65,7 @@ export default class AddtoOrganiserScreen extends React.Component {
   } 
 
  addItem(item, money, person, event, date) {
-  let newItemKey = db.ref('users/' + userId + '/' + cat).push(
+  let newItemKey = db.ref('users/' + userId + '/' + cat + '/' + date).push(
     {
       name: 'blank-name',
       price: 'blank-price',
@@ -78,7 +78,7 @@ export default class AddtoOrganiserScreen extends React.Component {
       gifteeWishlistKey: 'blank-giftee-wishlist-key'
     }
   ).key;
-  return db.ref('users/' + userId + '/' + cat + '/' + newItemKey).update(
+  return db.ref('users/' + userId + '/' + cat + '/' + date + '/' + newItemKey).update(
     {
       name: item,
       price: money,

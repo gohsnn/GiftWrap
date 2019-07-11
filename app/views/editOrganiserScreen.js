@@ -72,7 +72,7 @@ export default class EditOrganiserScreen extends React.Component {
 
  addItem(item, money, person, event, date, bought) {
   let itemKey = this.state.key;
-  return db.ref('users/' + userId + '/' + cat + '/' + itemKey).update(
+  return db.ref('users/' + userId + '/' + cat + '/' + date + '/' + itemKey).update(
     {
       name: item,
       price: money,
@@ -137,9 +137,9 @@ handleChangeEvent = () => {
     });
   }
 }
-handleBought = () => {
-    this.setState({bought: 1}); 
-};
+// handleBought = () => {
+//     this.setState({bought: 1}); 
+// };
 
 toggleBought = (value) => {
     this.setState({bought: value}); 
