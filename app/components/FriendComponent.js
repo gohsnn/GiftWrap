@@ -1,5 +1,5 @@
 import React, { Component } from 'react';  
-import { View, Text, StyleSheet } from 'react-native';  
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';  
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
 
@@ -14,10 +14,10 @@ class FriendComponent extends Component {
         {this.props.friends.map((friend, index) => {
           return (
             <View key={index}>
-              <Text style={styles.itemtext} 
+              <TouchableOpacity style={styles.button} 
               onPress = {() => this.props.navigation.navigate('Friend', friend)}>
-              {friend.name}
-              </Text>
+              <Text style = {styles.buttonText}>{friend.name}</Text>
+              </TouchableOpacity>
             </View> 
           );
         })}
@@ -33,16 +33,31 @@ class FriendComponent extends Component {
 
 const styles = StyleSheet.create({  
   friendList: {
-    flex: 1,
+    // flex: 1,
+    alignItems: 'stretch',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    paddingTop: 15,
-    paddingLeft: 25,
   },
-  itemtext: {
+  buttonText: {
     fontFamily: 'Nunito-Bold',
     fontSize: 18,
-    textAlign: 'center'
+    marginBottom: 5,
+    marginTop: 12,
+    paddingLeft: 28,
+    alignSelf: 'stretch'
+    // paddingLeft: 28 
+  },
+  button: {
+    height: 55,
+    flexDirection: 'row',
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginHorizontal: 21,
+    marginVertical: 8,
+    alignSelf: 'stretch',
+    // justifyContent: 'center'
   }
 });
 
