@@ -40,7 +40,9 @@ export default class EditOrganiserScreen extends React.Component {
           bought: false,
           styleOne: {},
           styleTwo: {},
-          styleThree: {}
+          styleThree: {},
+          eventChanged: false,
+          oldDate: ''
         };
     }
   
@@ -64,12 +66,16 @@ export default class EditOrganiserScreen extends React.Component {
       giftee: friendName,
       gifteeID: friendID,
       key: key,
-      bought: bought
+      bought: bought,
+      oldDate: date
     })
   } 
 
  addItem(item, money, person, event, date, bought) {
   let itemKey = this.state.key;
+  if (this.state.eventChanged) {
+    db.ref('users/' + userId + '/' + cat + '/' + this.state.oldDate + '/' + itemKey).remove(); 
+  }
   return db.ref('users/' + userId + '/' + cat + '/' + date + '/' + itemKey).update(
     {
       name: item,
@@ -127,10 +133,10 @@ handleChangeEvent = () => {
       } 
     });
   }
+  this.setState({
+    eventChanged: true
+  });
 }
-// handleBought = () => {
-//     this.setState({bought: 1}); 
-// };
 
 toggleBought = (value) => {
     this.setState({bought: value}); 

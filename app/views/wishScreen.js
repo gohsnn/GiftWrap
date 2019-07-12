@@ -8,14 +8,8 @@ import {
   StyleSheet,
   View,
   Icon,
+  TouchableOpacity
 } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-// import {
-//   createStackNavigator,
-//   createSwitchNavigator,
-//   createBottomTabNavigator,
-//   createAppContainer
-// } from 'react-navigation';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
@@ -92,7 +86,6 @@ export default class WishScreen extends React.Component {
         elevation: 0,
         shadowOpacity: 0,
         borderBottomWidth: 0,
-        //paddingHorizontal: 8,
       },
       headerTintColor: '#ed5f56',
       headerTitleStyle: {
@@ -104,37 +97,18 @@ export default class WishScreen extends React.Component {
         
       },
       headerRight:(
-      <Button
-      color = '#ed5f56'
-      title= "+"
-      onPress={() => navigation.navigate('Add')}
-      />),
-
-      /*
-      headerRight: (
-        //add item to wishlist - assume to Settings
-        //problem: button requires a string for the title
-        /*
-        <Button 
-        transparent
-        onPress={() => this.props.navigation.navigate('Settings')}
-        title="+"
-        /> */
-      /*
-      <Button
-        onPress={() => this.props.navigation.navigate('Settings')}
-        icon={{name: 'plus-square', type: 'font-awesome'}}
-        title='' 
-      />
-      /*
-      <TouchableHighlight onPress={() => this.props.navigation.navigate('Settings')}>
-        <Icon
-          type="FontAwesome"
-          name="plus-square"
-          style={{ color: "white" }}
-        />
-      </TouchableHighlight> 
-    ), */
+      // <Button
+      // color = '#ed5f56'
+      // title= "+"
+      // onPress={() => navigation.navigate('Add')}
+      // />),
+      <TouchableOpacity
+        style={styles.button}
+        underlayColor="red"
+        onPress={() => navigation.navigate('Add')}
+      >
+        <Text style={styles.buttonText}>+</Text>
+      </TouchableOpacity>),
     }
   };
 
@@ -147,14 +121,17 @@ export default class WishScreen extends React.Component {
             <Text>No items</Text>
           )}
 
-        {/* <Button
-          title="Add item"
-          onPress={() => this.props.navigation.navigate('Add')}
-        /> */}
-
       </View>
     );
   }
 }
 
-//   module.export = WishList;
+const styles = StyleSheet.create({
+  buttonText: {
+    fontFamily: 'Nunito-Light',
+    fontSize: 28,
+    color: '#ED5F56',
+    marginRight: 21,
+    marginBottom: 8
+  }
+});

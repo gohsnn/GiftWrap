@@ -4,9 +4,8 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  AsyncStorage
 } from 'react-native';
-
+import AsyncStorage from '@react-native-community/async-storage';
 export default class AuthLoadingScreen extends React.Component {
     constructor() {
       super();

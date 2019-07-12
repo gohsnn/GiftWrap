@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   Alert, 
   View,
 } from 'react-native';
@@ -239,13 +240,13 @@ render() {
             </Picker>
           </Form>
 
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.button}
         underlayColor="red"
         onPress={this.handleSubmit}
       >
         <Text style={styles.buttonText}>+</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 }
