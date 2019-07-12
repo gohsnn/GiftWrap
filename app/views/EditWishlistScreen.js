@@ -1,32 +1,11 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
   Text,
-  StatusBar,
   StyleSheet,
-  Platform,
   TextInput,
-  TouchableHighlight,
   Alert,
   View,
 } from 'react-native';
-// import {Container, 
-//         Input, 
-//         InputGroup, 
-//         Left, 
-//         Content, 
-//         Header, 
-//         Footer, 
-//         FooterTab, 
-//         Button, 
-//         Icon, 
-//         Picker,
-//         Form,
-//         Right} from "native-base";
-// import { Ionicons } from '@expo/vector-icons';
-// import { db } from "../config";
 import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -40,7 +19,9 @@ export default class EditWishlistScreen extends React.Component {
   state = {
     name: 'blank-name',
     price: 'blank-price',
-    key: 'blank-key'
+    key: 'blank-key', 
+    styleOne: {},
+    styleTwo: {}
   }
   
   async componentWillMount() {
@@ -56,9 +37,10 @@ export default class EditWishlistScreen extends React.Component {
     this.setState({
       name: itemName,
       price: itemPrice,
-      key: itemKey
+      key: itemKey,
+      styleOne: {},
+      styleTwo: {}
     });
-    // alert(itemName + ' ' + itemKey);
   } 
 
  addItem(item, money) {
@@ -118,15 +100,46 @@ handleSubmit = () => {
   }
 };
 
+onFocusOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {};
+
+  this.setState(state);
+}
+
+onFocusTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {};
+
+  this.setState(state);
+}
+
 render() {
   return (
     <View>
       <Text></Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
+      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeName} value = {this.state.name} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()}  />
+      <TextInput style={[styles.itemInput, this.state.styleTwo]} onChange={this.handleChangePrice} value = {this.state.price} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()} />
       <TouchableOpacity
         style={styles.button}
-        // underlayColor="red"
         onPress={this.handleSubmit}
       >
         <Text style={styles.buttonText}>+</Text>
@@ -136,26 +149,16 @@ render() {
 }
   }
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    padding: 30,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#6565fc'
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center'
-  },
   itemInput: {
     height: 50,
-    padding: 4,
-    marginRight: 5,
-    fontSize: 23,
+    paddingLeft: 18,
+    marginHorizontal: 21,
+    marginVertical: 8,
+    fontSize: 15,
+    fontFamily: 'Nunito-Regular',
     borderWidth: 1,
     borderColor: '#E4E4E4',
-    borderRadius: 8,
+    borderRadius: 5,
     color: '#646464'
   },
   buttonText: {
@@ -171,9 +174,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
     borderColor: '#F6F6F6',
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
+    borderRadius: 5,
+    marginHorizontal: 21,
+    marginVertical: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }

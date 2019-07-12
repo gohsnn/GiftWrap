@@ -1,29 +1,15 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
   Text,
-  StatusBar,
   StyleSheet,
-  Platform,
   TextInput,
   TouchableHighlight,
   Alert, 
   View,
 } from 'react-native';
-import {Container, 
-        Input, 
-        InputGroup, 
-        Left, 
-        Content, 
-        Header, 
-        Footer, 
-        FooterTab, 
-        Icon, 
+import {Icon, 
         Picker,
-        Form,
-        Right} from "native-base";
+        Form,} from "native-base";
 import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
 
@@ -39,7 +25,10 @@ export default class AddtoOrganiserScreen extends React.Component {
           giftee: '',
           gifteeID: '',
           selectedEvent: undefined, 
-          date: '0000'
+          date: '0000',
+          styleOne: {},
+          styleTwo: {},
+          styleThree: {}
         };
     }
   
@@ -99,12 +88,6 @@ export default class AddtoOrganiserScreen extends React.Component {
     );
   }
 
-// state = {
-//   name: '',
-//   price: '',
-//   giftee: '',
-//   event: ''
-// };
 
 handleChangeGiftee = e => {
     this.setState({
@@ -151,10 +134,6 @@ handleChangeEvent = () => {
 }
 
 handleSubmit = async () => {
-  //plan: pass the information down as params for the friend.
-  //information to pass down would be the item id? 
-  //or maybe instead update on the actual item itself whether it is bought or not as a 1 or 0? 
-  //or maybe save who is buying the gift, if no one it'll be a specific value like   
   await this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
   await this.reserveItem();
   Alert.alert('Item saved successfully');
@@ -182,22 +161,61 @@ handleSubmit = async () => {
   }
 };
 
-// onValueChange(value) {
-//     this.setState({
-//         selectedEvent: value
-//         // event: value
-//     });
-//     // alert(this.state.event);
-//     this.handleChangeEvent;
-// }
+onFocusOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {};
+
+  this.setState(state);
+}
+
+onFocusTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {};
+
+  this.setState(state);
+}
+
+onFocusThree = () => {
+  const state = { ...this.state };
+  state.styleThree = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurThree = () => {
+  const state = { ...this.state };
+  state.styleThree = {};
+
+  this.setState(state);
+}
+
 
 render() {
   return (
     <View>
-      <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} value = {this.state.giftee}/>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
+      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeGiftee} value = {this.state.giftee} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()}/>
+      <TextInput style={[styles.itemInput, this.state.styleTwo]} onChange={this.handleChangeName} value = {this.state.name} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()}/>
+      <TextInput style={[styles.itemInput, this.state.styleThree]} onChange={this.handleChangePrice} value = {this.state.price} onFocus={() => this.onFocusThree()} onBlur={() => this.onBlurThree()}/>
         <Form>
             <Picker
             mode="dropdown"
@@ -205,7 +223,7 @@ render() {
             placeholder="Choose event"
             placeholderStyle={{ color: "black" }}
             placeholderIconColor="#007aff"
-            style={{ width: undefined }}
+            style={styles.picker}
             selectedValue={this.state.selectedEvent}
             onValueChange={ async (itemValue, itemIndex) => {
             await this.setState({selectedEvent: itemValue});
@@ -226,49 +244,48 @@ render() {
         underlayColor="red"
         onPress={this.handleSubmit}
       >
-        <Text style={styles.buttonText}>Add</Text>
+        <Text style={styles.buttonText}>+</Text>
       </TouchableHighlight>
     </View>
   );
 }
   }
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    padding: 30,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#6565fc'
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center'
-  },
   itemInput: {
     height: 50,
-    padding: 4,
-    marginRight: 5,
-    fontSize: 23,
+    paddingLeft: 18,
+    marginHorizontal: 21,
+    marginVertical: 8,
+    fontSize: 15,
+    fontFamily: 'Nunito-Regular',
     borderWidth: 1,
-    borderColor: '#ed5f56',
-    borderRadius: 8,
-    color: '#ed5f56'
+    borderColor: '#E4E4E4',
+    borderRadius: 5,
+    color: '#646464'
   },
   buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
+    fontFamily: 'Nunito-Light',
+    fontSize: 28,
+    color: '#ED5F56',
+    alignSelf: 'center',
+    marginBottom: 5
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: '#ed5f56',
-    borderColor: '#ed5f56',
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
+    borderRadius: 5,
+    marginHorizontal: 21,
+    marginVertical: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  picker: {
+    flexDirection: 'row',
+    marginHorizontal: 21,
+    marginVertical: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }

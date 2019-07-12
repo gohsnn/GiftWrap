@@ -40,9 +40,8 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   itemtext: {
-    fontFamily: 'Nunito-Regular',
-    fontSize: 15,
-    fontWeight: 'normal',
+    fontFamily: 'Nunito-Bold',
+    fontSize: 18,
     textAlign: 'center'
   }
 });

@@ -1,12 +1,7 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
   Text,
-  StatusBar,
   StyleSheet,
-  Platform,
   TextInput,
   TouchableHighlight,
   Alert, 
@@ -42,7 +37,10 @@ export default class EditOrganiserScreen extends React.Component {
           selectedEvent: undefined, 
           date: '0000',
           key: '',
-          bought: false
+          bought: false,
+          styleOne: {},
+          styleTwo: {},
+          styleThree: {}
         };
     }
   
@@ -86,13 +84,6 @@ export default class EditOrganiserScreen extends React.Component {
     }
   );
 };
-
-// state = {
-//   name: '',
-//   price: '',
-//   giftee: '',
-//   event: ''
-// };
 
 handleChangeGiftee = e => {
     this.setState({
@@ -174,13 +165,60 @@ handleSubmit = () => {
   }
 };
 
+onFocusOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {};
+
+  this.setState(state);
+}
+
+onFocusTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {};
+
+  this.setState(state);
+}
+
+onFocusThree = () => {
+  const state = { ...this.state };
+  state.styleThree = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurThree = () => {
+  const state = { ...this.state };
+  state.styleThree = {};
+
+  this.setState(state);
+}
 
 render() {
   return (
     <View>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeGiftee} value = {this.state.giftee}/>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} value = {this.state.name} />
-      <TextInput style={styles.itemInput} onChange={this.handleChangePrice} value = {this.state.price} />
+      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeGiftee} value = {this.state.giftee} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()}/>
+      <TextInput style={[styles.itemInput, this.state.styleTwo]} onChange={this.handleChangeName} value = {this.state.name} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()}/>
+      <TextInput style={[styles.itemInput, this.state.styleThree]} onChange={this.handleChangePrice} value = {this.state.price} onFocus={() => this.onFocusThree()} onBlur={() => this.onBlurThree()}/>
         <Form>
             <Picker
             mode="dropdown"
@@ -188,7 +226,7 @@ render() {
             placeholder="Choose event"
             placeholderStyle={{ color: "black" }}
             placeholderIconColor="#007aff"
-            style={{ width: undefined }}
+            style={styles.picker}
             selectedValue={this.state.selectedEvent}
             onValueChange={ async (itemValue, itemIndex) => {
             await this.setState({selectedEvent: itemValue});
@@ -233,28 +271,39 @@ const styles = StyleSheet.create({
   },
   itemInput: {
     height: 50,
-    padding: 5,
-    marginRight: 5,
-    fontSize: 23,
+    paddingLeft: 18,
+    marginHorizontal: 21,
+    marginVertical: 8,
+    fontSize: 15,
+    fontFamily: 'Nunito-Regular',
     borderWidth: 1,
-    borderColor: '#ed5f56',
-    borderRadius: 8,
-    color: '#ed5f56'
+    borderColor: '#E4E4E4',
+    borderRadius: 5,
+    color: '#646464'
   },
   buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    color: '#ED5F56',
+    alignSelf: 'center',
+    marginBottom: 5
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: '#ed5f56',
-    borderColor: '#ed5f56',
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 55,
+    borderRadius: 5,
+    marginHorizontal: 21,
+    marginVertical: 60,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  picker: {
+    flexDirection: 'row',
+    marginHorizontal: 21,
+    marginVertical: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }

@@ -76,7 +76,7 @@ const TabNavigator = createBottomTabNavigator(
         }
 
         // You can return any component that you like here!
-        return <FontAwesomeIcon icon={ iconName } size={25} color={tintColor}/>;
+        return <FontAwesomeIcon icon={ iconName } size={22} color={tintColor}/>;
       },
     }),
     tabBarOptions: {

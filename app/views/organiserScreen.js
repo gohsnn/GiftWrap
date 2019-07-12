@@ -87,7 +87,7 @@ export default class OrganiserScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}>
         {this.state.items.length > 0 ? (
           <SectionList
           sections={this.convertFormat(this.state.items, this.state.dates)}
