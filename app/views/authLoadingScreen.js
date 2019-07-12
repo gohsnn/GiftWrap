@@ -1,16 +1,11 @@
 import React from 'react';
 import {
   ActivityIndicator,
-  AsyncStorage,
-  Button,
-  Text,
   StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
-// import { Ionicons } from '@expo/vector-icons';
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
-
+import AsyncStorage from '@react-native-community/async-storage';
 export default class AuthLoadingScreen extends React.Component {
     constructor() {
       super();

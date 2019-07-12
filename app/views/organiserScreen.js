@@ -14,6 +14,7 @@ import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, 
 import OrgComponent from '../components/OrgComponent';
 import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
+import moment from 'moment';
 
 const db = firebase.database();
 var user, cat, userId, orgRef, accessData;
@@ -80,15 +81,19 @@ export default class OrganiserScreen extends React.Component {
     firebase.database().ref('users/' + uid + '/' + 'organiser/' + key).remove();
   }
 
+  formatDate(date) {
+    return moment("2019" + date).format("Do MMM");
+  }
+
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{flex: 1, marginHorizontal: 21,}}>
         {this.state.items.length > 0 ? (
           <SectionList
           sections={this.convertFormat(this.state.items, this.state.dates)}
           renderItem = {({item}) =>  
           <OrgComponent item = {item}/>}
-          renderSectionHeader={({section}) => <Text style= {styles.headers}>{section.title}</Text>}
+          renderSectionHeader={({section}) => <Text style= {styles.headers}>{this.formatDate(section.title) + ', ' + section.data[0].event}</Text>}
           keyExtractor={(item, index) => index}
           />
         ) : (
@@ -104,6 +109,7 @@ export default class OrganiserScreen extends React.Component {
 const styles = StyleSheet.create({
   headers: {
     fontFamily: 'Nunito-Bold',
+    textTransform: 'capitalize',
     color: '#ED5F56',
     fontSize: 18, 
     paddingTop: 10

@@ -1,14 +1,9 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
   Text,
-  StatusBar,
   StyleSheet,
-  Platform,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
   Alert,
   View,
 } from 'react-native';
@@ -39,7 +34,9 @@ export default class AddtoWishlistScreen extends React.Component {
   state = {
     name: 'blank-name',
     price: 'blank-price',
-    key: 'blank-key'
+    key: 'blank-key',
+    styleOne: {},
+    styleTwo: {}
   }
   
   async componentWillMount() {
@@ -70,12 +67,6 @@ export default class AddtoWishlistScreen extends React.Component {
   );
 };
 
-// state = {
-//   name: '',
-//   price: ''
-// };
-
-// //plan get the state from 
 
 handleChangeName = e => {
   this.setState({
@@ -120,61 +111,84 @@ handleSubmit = () => {
     },
   }
 };
-//do an if else to check if item is null or not then render the same textInput accordingly
+
+onFocusOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurOne = () => {
+  const state = { ...this.state };
+  state.styleOne = {};
+
+  this.setState(state);
+}
+
+onFocusTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {
+    borderColor: '#ED5F56',
+  };
+
+  this.setState(state);
+}
+
+onBlurTwo = () => {
+  const state = { ...this.state };
+  state.styleTwo = {};
+
+  this.setState(state);
+}
+
 render() {
   return (
     <View>
-      <Text style={styles.title}>Add Item</Text>
-      <TextInput style={styles.itemInput} onChange={this.handleChangeName} placeholder = "Gift Name" />
-      <TextInput style={styles.itemInput} keyboardType='numeric' maxLength={6} onChange={this.handleChangePrice} placeholder = "Gift Price" />
-      <TouchableHighlight
+      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeName} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()} placeholder = "Gift Name" />
+      <TextInput style={[styles.itemInput, this.state.styleTwo]} keyboardType='numeric' maxLength={6} onChange={this.handleChangePrice} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()} placeholder = "Gift Price" />
+      <TouchableOpacity
         style={styles.button}
-        underlayColor="red"
+        // underlayColor="red"
         onPress={this.handleSubmit}
       >
-        <Text style={styles.buttonText}>Add</Text>
-      </TouchableHighlight>
+        <Text style={styles.buttonText}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }
   }
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-    padding: 30,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: '#6565fc'
-  },
-  title: {
-    marginBottom: 20,
-    fontSize: 25,
-    textAlign: 'center'
-  },
   itemInput: {
     height: 50,
-    padding: 4,
-    marginRight: 5,
-    fontSize: 23,
+    paddingLeft: 18,
+    marginHorizontal: 21,
+    marginVertical: 8,
+    fontSize: 15,
+    fontFamily: 'Nunito-Regular',
     borderWidth: 1,
-    borderColor: '#ed5f56',
-    borderRadius: 8,
-    color: 'red'
+    borderColor: '#E4E4E4',
+    borderRadius: 5,
+    color: '#646464'
   },
   buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
+    fontFamily: 'Nunito-Light',
+    fontSize: 28,
+    color: '#ED5F56',
+    alignSelf: 'center',
+    marginBottom: 5
   },
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor: '#ed5f56',
-    borderColor: '#ed5f56',
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
     borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    marginTop: 10,
+    borderRadius: 5,
+    marginHorizontal: 21,
+    marginVertical: 8,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }

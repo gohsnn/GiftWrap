@@ -78,11 +78,10 @@ export default class FriendsScreen extends React.Component {
   render() {
       return (
         <View style={{ 
-          flex: 1, 
+          // flex: 1, 
           //flexDirection: 'column',
-          justifyContent: 'flex-start', 
-          alignItems: 'flex-start' }}>
-            <Text></Text>
+          // justifyContent: 'flex-start', 
+          }}>
             {this.state.friends.length > 0 ? (
           <FriendComponent friends={this.state.friends}/>
         ) : (

@@ -1,12 +1,8 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  Button,
-  Text,
-  StatusBar,
   StyleSheet,
   View,
+  Text,
   Icon,
 } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
