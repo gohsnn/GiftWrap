@@ -17,47 +17,6 @@ class OrgComponent extends Component {
     });
   }
 
-  // render() {
-  //   return (
-  //     <View style={styles.itemsList}>
-  //       {this.props.items.map((item, index) => {
-  //         return (
-  //           <View key={index}>
-  //           <Text style={styles.itemtext}>{item.date}</Text>
-  //           <Text onPress = {() => this.props.navigation.navigate('EditOrg', item)}>
-  //             <Text style={styles.itemtext}>{item.giftee + ' '}</Text>
-  //             <Text style={styles.itemtext}>{item.name + ' '}</Text>
-  //             <Text style={styles.itemtext}>${item.price + ' '}</Text>
-  //             <Text style={styles.itemtext}>{item.event}</Text>
-  //             {item.bought == true ? <Text> Bought</Text> : (null) }
-  //           </Text>
-  //           <Button title = 'Delete' onPress={() => this.handleDelete(item.key)}/>
-  //           </View>
-  //         );
-  //       })}
-  //     </View>
-  //   );
-  // }
-  
-  //can just pass item as the argument for checkdate
-  //need another argument tho 
-
-  //plan: use Object.keys 
-  // convertFormat(items) {
-  //   newArr = [];
-  //   for (i=0; i < items.length; i++){
-  //     newArr.push({
-  //       title: Object.keys(items[i]), 
-  //       data: Object.values(items[i])
-  //     });
-  //   }
-  //   return newArr;
-  // } 
-  
-
-  // filterByDate(items, date) {
-  //   return items.filter((item) => item.date == date);
-  // }
 
   render() {
     return (
