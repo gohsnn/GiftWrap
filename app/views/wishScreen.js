@@ -118,14 +118,14 @@ export default class WishScreen extends React.Component {
     return (
       <View style={{flex: 1, marginHorizontal: 21,}}>
         {this.state.items.length > 0 ? (
-          <List>
+
             <FlatList
+              data={this.state.items}
               renderItem = {({item}) =>
               <ItemComponent item = {item}/>}
               keyExtractor={(item, index) => index}
             />
-          </List>
-        
+      
         ) : (
           <Text>Nothing to buy yet</Text> 
         )}

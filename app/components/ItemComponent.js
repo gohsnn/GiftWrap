@@ -37,9 +37,9 @@ class ItemComponent extends Component {
             <Text style={styles.itemtext}>{this.props.item.name + ', '}</Text>
             <Text style={styles.itemPrice}>{this.props.item.price + ' '} </Text>
           </View>
-          <Button title = 'Delete' 
-          onPress={() => this.handleDelete(item.key)}/>
         </TouchableOpacity>
+          <Button title = 'Delete' 
+          onPress={() => this.handleDelete(this.props.item.key)}/>
       </View>
     );
   } 
