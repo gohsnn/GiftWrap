@@ -151,7 +151,7 @@ handleSubmit = () => {
 
 
     
-    static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation }) => {
   return {
     title: 'Edit',
     headerStyle: {

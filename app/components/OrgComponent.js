@@ -18,7 +18,7 @@ class OrgComponent extends Component {
     });
   }
 
-
+  
   render() {
     return (
       <View >

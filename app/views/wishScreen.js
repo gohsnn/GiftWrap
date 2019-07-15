@@ -10,7 +10,7 @@ import {
   Icon,
   TouchableOpacity
 } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
 import { GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
@@ -25,6 +25,7 @@ export default class WishScreen extends React.Component {
     items: []
   }
 
+  //to store user's birthday in overall database
   async FBGraphRequest(fields, callback) {
     const accessData = await AccessToken.getCurrentAccessToken();
     // Create a graph request asking for user information
@@ -112,6 +113,28 @@ export default class WishScreen extends React.Component {
     }
   };
 
+  //with flatlist version
+  render() {
+    return (
+      <View style={{flex: 1, marginHorizontal: 21,}}>
+        {this.state.items.length > 0 ? (
+
+            <FlatList
+              data={this.state.items}
+              renderItem = {({item}) =>
+              <ItemComponent item = {item}/>}
+              keyExtractor={(item, index) => index}
+            />
+      
+        ) : (
+          <Text>Nothing to buy yet</Text> 
+        )}
+      </View>
+    );
+  }
+
+  //without flatlist version
+  /*
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -123,7 +146,7 @@ export default class WishScreen extends React.Component {
 
       </View>
     );
-  }
+  } */
 }
 
 const styles = StyleSheet.create({

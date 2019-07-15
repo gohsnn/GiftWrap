@@ -26,6 +26,26 @@ class ItemComponent extends Component {
     });
   }
 
+  //with flatlist version
+  render() {
+    return (
+      <View >
+        <TouchableOpacity 
+        style={styles.container} 
+        onPress = {() => this.props.navigation.navigate('Edit', this.props.item)}>
+          <View style={styles.item}>
+            <Text style={styles.itemtext}>{this.props.item.name + ', '}</Text>
+            <Text style={styles.itemPrice}>{this.props.item.price + ' '} </Text>
+          </View>
+        </TouchableOpacity>
+          <Button title = 'Delete' 
+          onPress={() => this.handleDelete(this.props.item.key)}/>
+      </View>
+    );
+  } 
+  
+  //without flatist version 
+  /*
   render() {
     return (
       <View style={styles.itemsList}>
@@ -48,11 +68,11 @@ class ItemComponent extends Component {
         })}
       </View>
     );
-  }
+  } 
 
   handleEdit(item) {
     this.props.navigation.navigate('Edit', item);
-  }
+  } */
 
   handleDelete(key) {
     let uid = this.state.userId;
@@ -63,6 +83,27 @@ class ItemComponent extends Component {
 
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
+    borderWidth: 1,
+    borderRadius: 15,
+    flexDirection: 'column',
+    height: 65,
+    marginVertical: 8,
+    alignSelf: 'stretch',
+  },
+  item: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+  },
+  itemPrice: {
+    flexDirection: 'row',
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    fontWeight: 'normal',
+    color: '#ED5F56'
+  },
   itemsList: {
     flex: 1,
     flexDirection: 'column',
