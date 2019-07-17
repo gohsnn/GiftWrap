@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';  
 import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class FriendItemComponent extends Component {  
   static propTypes = {
@@ -21,7 +22,7 @@ class FriendItemComponent extends Component {
                     <View key={index}>
                     { (item.buyer == undefined) ? 
                     (<View>
-                      <Text style={styles.itemtext}
+                      <TouchableOpacity style={styles.itemtext}
                         onPress = {() => this.props.navigation.navigate('AddOrg', {
                           gifteeName: this.props.friendName,
                           id: friendID,
@@ -29,8 +30,8 @@ class FriendItemComponent extends Component {
                           price: item.price,
                           gifteeWishlistKey: item.key
                         })}>
-                            {item.name}
-                        </Text>
+                            <Text> {item.name}</Text>
+                        </TouchableOpacity>
                         <Text style={styles.itemtext}>{item.price}</Text>
                     </View>) :
                     (<View>
