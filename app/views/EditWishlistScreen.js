@@ -142,7 +142,7 @@ render() {
         style={styles.button}
         onPress={this.handleSubmit}
       >
-        <Text style={styles.buttonText}>+</Text>
+        <Text style={styles.buttonText}>Done</Text>
       </TouchableOpacity>
     </View>
   );
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     color: '#646464'
   },
   buttonText: {
-    fontFamily: 'Nunito-Light',
-    fontSize: 28,
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
     color: '#ED5F56',
     alignSelf: 'center',
     marginBottom: 5
