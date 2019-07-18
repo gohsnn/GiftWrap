@@ -14,6 +14,7 @@ import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
 import { GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
+import { SwipeListView, SwipeRow, Animated } from 'react-native-swipe-list-view';
 
 const db = firebase.database();
 
@@ -24,6 +25,8 @@ export default class WishScreen extends React.Component {
   state = {
     items: []
   }
+
+  //rowTranslateAnimatedValues = {};
 
   //to store user's birthday in overall database
   async FBGraphRequest(fields, callback) {
@@ -74,9 +77,36 @@ export default class WishScreen extends React.Component {
       if (data) {
         let items = Object.values(data);
         this.setState({ items });
+/*
+        this.items.forEach((_, i) => {
+        this.rowTranslateAnimatedValues['${i}'] = new Animated.Value(1);
+  
+      }); */
       } 
     });
     this.FBGraphRequest('birthday', this.FBLoginCallback);
+  }
+
+  /*
+  onSwipeValueChange = (swipeData) => {
+    const { key, value } = swipeData;
+    // 375 or however large your screen is (i.e. Dimensions.get('window').width)
+    if (value < -375 && !this.animationIsRunning) {
+        this.animationIsRunning = true;
+        Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
+          
+          const newData = [...this.state.items];
+            const prevIndex = this.state.items.findIndex(item => item.key === key);
+            newData.splice(prevIndex, 1);
+            this.setState({items: newData});
+            this.animationIsRunning = false;
+        });
+    }
+  } */
+
+handleDelete(key) {
+    let uid = this.state.userId;
+    firebase.database().ref('users/' + uid + '/' + 'wishlist/' + key).remove();
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -116,37 +146,50 @@ export default class WishScreen extends React.Component {
   //with flatlist version
   render() {
     return (
-      <View style={{flex: 1, marginHorizontal: 21,}}>
+      <View style={{marginHorizontal: 21,}}>
         {this.state.items.length > 0 ? (
-
-            <FlatList
-              data={this.state.items}
-              renderItem = {({item}) =>
-              <ItemComponent item = {item}/>}
-              keyExtractor={(item, index) => index}
+           <SwipeListView
+            useFlatList
+            data={this.state.items}
+            renderItem = {({item}) =>
+            <ItemComponent item = {item}/>}
+            keyExtractor={(item, index) => index}
+            renderHiddenItem={(data, rowMap) => (
+              <View styles={styles.rowBack}>
+                <Text></Text>
+                <Text style={styles.backText}>Delete</Text>
+                </View>
+            )}
+            //leftOpenValue={75}
+            rightOpenValue={-375}
+            onSwipeValueChange={this.onSwipeValueChange}
             />
-      
+          /*
+          <SwipeListView
+            useFlatList
+            data={this.state.items}
+            renderItem = {({item}) => (
+              <Animated.View style={[styles.rowFrontContainer, 
+                {
+                  height: this.rowTranslateAnimatedValues[data.item.key].interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 50],
+                })               
+               }                
+              ]}>
+                <ItemComponent item = {item}/>
+              </Animated.View>
+                
+            )} 
+
+            */
+
         ) : (
           <Text>Nothing to buy yet</Text> 
         )}
       </View>
     );
   }
-
-  //without flatlist version
-  /*
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {this.state.items.length > 0 ? (
-          <ItemComponent items={this.state.items} disableDeleteButton = {false} />
-        ) : (
-            <Text>No items</Text>
-          )}
-
-      </View>
-    );
-  } */
 }
 
 const styles = StyleSheet.create({
@@ -156,5 +199,11 @@ const styles = StyleSheet.create({
     color: '#ED5F56',
     marginRight: 21,
     marginBottom: 8
+  },
+  backText: {
+    fontSize: 15,
+    alignSelf: 'flex-end',
+    alignItems: 'baseline',
+    marginTop: 10,
   }
 });
