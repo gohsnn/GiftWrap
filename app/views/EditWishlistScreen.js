@@ -39,7 +39,8 @@ export default class EditWishlistScreen extends React.Component {
       price: itemPrice,
       key: itemKey,
       styleOne: {},
-      styleTwo: {}
+      styleTwo: {},
+      userId: userId
     });
   } 
 
@@ -79,6 +80,27 @@ handleSubmit = () => {
     {cancelable: false},
   );
 };
+
+handleDelete= () => {
+  let uid = this.state.userId;
+  let key = this.state.key; 
+  Alert.alert(
+    'Delete Item',
+    'Are you sure you want to delete the item?',
+    [
+      {text: 'OK', 
+      onPress: () => {
+        db.ref('users/' + uid + '/' + 'wishlist/' + key).remove();
+        this.props.navigation.navigate('Wishlist'); 
+      }},
+    ],
+    {cancelable: false},
+  );
+  
+}
+
+
+
     
     static navigationOptions = ({ navigation }) => {
   return {
@@ -144,10 +166,17 @@ render() {
       >
         <Text style={styles.buttonText}>Done</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={this.handleDelete}
+      >
+        <Text style={styles.buttonText}>Delete</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-  }
+}
+
 const styles = StyleSheet.create({
   itemInput: {
     height: 50,

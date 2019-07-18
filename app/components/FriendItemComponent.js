@@ -12,9 +12,6 @@ class FriendItemComponent extends Component {
     //friends: PropTypes.array.isRequired,
   };
 
-
-
-
   render() {
     return (
       <View>
