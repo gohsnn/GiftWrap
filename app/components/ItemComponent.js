@@ -42,8 +42,8 @@ class ItemComponent extends Component {
           </View>
           </View>
         </TouchableOpacity>
-          <Button title = 'Delete' 
-          onPress={() => this.handleDelete(this.props.item.key)}/>
+          {/* <Button title = 'Delete' 
+          onPress={() => this.handleDelete(this.props.item.key)}/> */}
       </View>
     );
   } 

@@ -22,6 +22,7 @@ import {Container,
         Right} from "native-base";
 import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const db = firebase.database();
 var user, userId, name, cat, photoUrl, addItem, friendID, giftName, friendName;
@@ -142,6 +143,21 @@ toggleBought = (value) => {
     this.setState({bought: value}); 
 };
 
+handleDelete= () => {
+  let key = this.state.key; 
+  Alert.alert(
+    'Delete Item',
+    'Are you sure you want to delete the item?',
+    [
+      {text: 'OK', 
+      onPress: () => {
+        db.ref('users/' + userId + '/' + 'organiser/' + this.state.oldDate + '/' + key).remove();
+        this.props.navigation.navigate('Organiser'); 
+      }},
+    ],
+    {cancelable: false},
+  );
+  }
 
 handleSubmit = () => {
   this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date, this.state.bought);
@@ -252,14 +268,23 @@ render() {
         <Text style = {styles.text}>Bought</Text>
         <Switch thumbColor={'#F7F7F7'} trackColor={{true: '#ed5f56'}} onValueChange={this.toggleBought} value={this.state.bought}/>
       </View>
+      <View style = {styles.both}>
+        <TouchableOpacity
+          style={styles.buttonDelete}
+          onPress={this.handleDelete}
+        >
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableOpacity>
 
-      <TouchableHighlight
-        style={styles.button}
-        underlayColor="red"
-        onPress={this.handleSubmit}
-      >
-        <Text style={styles.buttonText}>Done</Text>
-      </TouchableHighlight>
+        <TouchableOpacity
+          style={styles.buttonDone}
+          onPress={this.handleSubmit}
+        >
+          <Text style={styles.buttonText}>Done</Text>
+        </TouchableOpacity>
+      </View>
+
+      
       
     </View>
   );
@@ -305,6 +330,43 @@ const styles = StyleSheet.create({
     marginVertical: 60,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  both: {
+    marginTop: 60,
+    flexDirection: 'row',
+    height: 55,
+    justifyContent: 'space-between'
+  },
+  buttonDelete: {
+    flex:1,
+    width: 169,
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
+    borderWidth: 1,
+    marginHorizontal: 2,
+    marginLeft: 21,
+    marginVertical: 8,
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0, 
+    borderBottomLeftRadius: 5,
+  }, 
+  buttonDone: {
+    flex: 1,
+    width: 169,
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
+    borderWidth: 1,
+    marginRight: 21,
+    marginVertical: 8,
+    justifyContent: "center",
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5, 
+    borderBottomLeftRadius: 0,
+    alignSelf: 'stretch'
   },
   picker: {
     flexDirection: 'row',
