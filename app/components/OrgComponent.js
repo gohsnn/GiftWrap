@@ -30,7 +30,7 @@ class OrgComponent extends Component {
             </View>
               {this.props.item.bought == true ? <Text style={styles.itemBought}> Bought </Text> : (null) }
          </TouchableOpacity>
-         <Button title = 'Delete' onPress={() => this.handleDelete(this.props.item.key, this.props.item.date)}/>
+         {/* <Button title = 'Delete' onPress={() => this.handleDelete(this.props.item.key, this.props.item.date)}/> */}
       </View>
     );
   }

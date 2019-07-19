@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity  } from 'react-native';
 import PropTypes from 'prop-types';
 import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
@@ -10,8 +10,8 @@ var user, userId, itemsRef, accessData;
 
 class ItemComponent extends Component {
   static propTypes = {
-    items: PropTypes.array.isRequired,
-    disableDeleteButton: PropTypes.bool.isRequired
+    items: PropTypes.array,
+    disableDeleteButton: PropTypes.bool,
   };
 
   state = {
@@ -34,13 +34,16 @@ class ItemComponent extends Component {
         style={styles.container} 
         onPress = {() => this.props.navigation.navigate('Edit', this.props.item)}>
           <View style={styles.item}>
-            <Text style={styles.itemtext}>{'   ' + this.props.item.name + ', '}</Text>
-            <Text style={styles.itemPrice}>{'$' + this.props.item.price + ' '} </Text>
+          <View style = {{flex: 1}}>
+            <Text style={styles.itemtext}>{this.props.item.name}</Text>
+          </View>
+          <View style = {{flex: 1}}> 
+            <Text style={styles.itemPrice}>{'$' + this.props.item.price} </Text>
+          </View>
           </View>
         </TouchableOpacity>
-        
-          <Button title = 'Delete' 
-          onPress={() => this.handleDelete(this.props.item.key)}/>
+          {/* <Button title = 'Delete' 
+          onPress={() => this.handleDelete(this.props.item.key)}/> */}
       </View>
     );
   } 
@@ -57,8 +60,8 @@ const styles = StyleSheet.create({
     borderColor: '#F6F6F6',
     borderWidth: 1,
     borderRadius: 15,
-    height: 65,
-    //positioning 
+    flexDirection: 'column',
+    height: 55,
     marginVertical: 8,
     flexDirection: 'row',
     alignItems: 'baseline',
@@ -66,34 +69,31 @@ const styles = StyleSheet.create({
     //alignContent: 'stretch',
   },
   item: {
+    marginTop: 15,
     flexDirection: 'row',
-    alignItems: 'baseline',
-    alignContent: 'space-between'
-  },
-  itemtext: {
-    fontSize: 12,
-    //alignSelf: 'baseline',
-    fontFamily: 'Nunito-Regular',
-    fontWeight: 'normal',
-    flexDirection: 'row',
-    alignContent: 'stretch',
-    alignSelf: 'flex-start'
-    //textAlign: 'center'
-  },
+    // alignSelf: 'stretch',
+    flex: 1,
+  }, 
   itemPrice: {
-    //flexDirection: 'column',
     fontFamily: 'Nunito-Regular',
-    paddingLeft: 100,
+    textAlign: 'right',
+    marginRight: 20,
     fontSize: 15,
     fontWeight: 'normal',
     color: '#ED5F56',
-    alignSelf: 'flex-end',
   },
-  /*itemsList: {
+  itemsList: {
     flex: 1,
     flexDirection: 'column',
-    //justifyContent: 'space-around',
-  }*/
+    justifyContent: 'space-around'
+  },
+  itemtext: {
+    fontSize: 15,
+    fontFamily: 'Nunito-Regular',
+    fontWeight: 'normal',
+    flexDirection: 'row',
+    paddingLeft: 28,
+  }
 });
 
 export default withNavigation(ItemComponent);

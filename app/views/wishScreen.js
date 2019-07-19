@@ -125,7 +125,7 @@ export default class WishScreen extends React.Component {
         fontFamily: "Nunito-Bold",
         fontSize: 18,
         textAlign: 'center',
-        width: '110%',
+        width: '107%',
         
       },
       headerRight:(

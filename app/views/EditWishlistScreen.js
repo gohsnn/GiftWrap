@@ -39,7 +39,8 @@ export default class EditWishlistScreen extends React.Component {
       price: itemPrice,
       key: itemKey,
       styleOne: {},
-      styleTwo: {}
+      styleTwo: {},
+      userId: userId
     });
   } 
 
@@ -79,6 +80,27 @@ handleSubmit = () => {
     {cancelable: false},
   );
 };
+
+handleDelete= () => {
+  let uid = this.state.userId;
+  let key = this.state.key; 
+  Alert.alert(
+    'Delete Item',
+    'Are you sure you want to delete the item?',
+    [
+      {text: 'OK', 
+      onPress: () => {
+        db.ref('users/' + uid + '/' + 'wishlist/' + key).remove();
+        this.props.navigation.navigate('Wishlist'); 
+      }},
+    ],
+    {cancelable: false},
+  );
+  
+}
+
+
+
     
     static navigationOptions = ({ navigation }) => {
   return {
@@ -138,16 +160,26 @@ render() {
       <Text></Text>
       <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeName} value = {this.state.name} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()}  />
       <TextInput style={[styles.itemInput, this.state.styleTwo]} onChange={this.handleChangePrice} value = {this.state.price} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()} />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={this.handleSubmit}
-      >
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
+      <View style = {styles.both}> 
+        <TouchableOpacity
+          style={styles.buttonDelete}
+          onPress={this.handleDelete}
+        >
+          <Text style={styles.buttonText}>Delete</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonDone}
+          onPress={this.handleSubmit}
+        >
+          <Text style={styles.buttonText}>Done</Text>
+        </TouchableOpacity>
+      </View>
+      
     </View>
   );
 }
-  }
+}
+
 const styles = StyleSheet.create({
   itemInput: {
     height: 50,
@@ -161,23 +193,47 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: '#646464'
   },
+  both: {
+    flexDirection: 'row',
+    height: 55,
+    justifyContent: 'space-between'
+  },
   buttonText: {
-    fontFamily: 'Nunito-Light',
-    fontSize: 28,
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
     color: '#ED5F56',
     alignSelf: 'center',
-    marginBottom: 5
+    marginBottom: 5,
   },
-  button: {
-    height: 45,
-    flexDirection: 'row',
+  buttonDelete: {
+    flex:1,
+    width: 169,
     backgroundColor: '#F6F6F6',
     borderColor: '#F6F6F6',
     borderWidth: 1,
-    borderRadius: 5,
-    marginHorizontal: 21,
+    marginHorizontal: 2,
+    marginLeft: 21,
     marginVertical: 8,
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0, 
+    borderBottomLeftRadius: 5,
+  }, 
+  buttonDone: {
+    flex: 1,
+    width: 169,
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
+    borderWidth: 1,
+    marginRight: 21,
+    marginVertical: 8,
+    justifyContent: "center",
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5, 
+    borderBottomLeftRadius: 0,
+    alignSelf: 'stretch'
   }
 });

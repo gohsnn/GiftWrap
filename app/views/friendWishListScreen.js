@@ -5,7 +5,7 @@ import {
   Text,
   Icon,
 } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import FriendItemComponent from '../components/FriendItemComponent';
 import firebase from 'react-native-firebase';
@@ -29,6 +29,7 @@ export default class WishScreen extends React.Component {
   async componentDidMount() {
     userId = this.props.navigation.getParam('id', 'NO-ID');
     friendID = userId;
+    this.setState({friendID: friendID});
     itemsRef = db.ref('users/' + userId + '/wishlist');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
@@ -37,6 +38,7 @@ export default class WishScreen extends React.Component {
         this.setState({ items });
       } 
     });
+
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -93,25 +95,52 @@ export default class WishScreen extends React.Component {
     }
   };
 
+
   render() {
     return (
       <View style={{
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginHorizontal: 21
       }}>
         {this.state.items.length > 0 ? (
-          <FriendItemComponent 
-          items={this.state.items}
-          friendID={this.state.friendID} 
-          friendName = {this.props.navigation.getParam('name', 'NO-NAME')}  
-          />
+
+          <FlatList
+            data = {this.state.items}
+            renderItem = {({item}) => 
+            <FriendItemComponent 
+              item={item}
+              friendID={this.state.friendID} 
+              friendName = {this.props.navigation.getParam('name', 'NO-NAME')}  
+            />}
+            keyExtractor={(item, index) => index}
+            />
         ) : (
           <Text>Your friend doesn't want anything yet</Text>
         )}
       </View>
     );
   }
+
+  //without flatlist version
+  // render() {
+  //   return (
+  //     <View style={{
+  //       flex: 1,
+  //       justifyContent: 'center',
+  //       alignItems: 'center'
+  //     }}>
+  //       {this.state.items.length > 0 ? (
+  //         <FriendItemComponent 
+  //         items={this.state.items}
+  //         friendID={this.state.friendID} 
+  //         friendName = {this.props.navigation.getParam('name', 'NO-NAME')}  
+  //         />
+  //       ) : (
+  //         <Text>Your friend doesn't want anything yet</Text>
+  //       )}
+  //     </View>
+  //   );
+  // }
 
   /*
   //from friend screen (to be removed later)
