@@ -85,13 +85,22 @@ export default class FriendsScreen extends React.Component {
             {this.state.friends.length > 0 ? (
           <FriendComponent friends={this.state.friends}/>
         ) : (
-            <Text>Time to get some friends</Text>
+            <Text style={styles.fillerText}>Time to get some friends</Text>
           )}
             <Text></Text>
         </View>
       );
     }
   }
+
+  const styles = StyleSheet.create({
+    fillerText: {
+      fontFamily: 'Nunito-Regular',
+      fontSize: 15,
+      alignSelf: 'center',
+      marginTop: 20,
+    }
+  });
 
 
 //   module.export = Friends;

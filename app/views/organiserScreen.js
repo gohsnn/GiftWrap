@@ -97,7 +97,7 @@ export default class OrganiserScreen extends React.Component {
           keyExtractor={(item, index) => index}
           />
         ) : (
-          <Text>Nothing to buy yet</Text> 
+          <Text style={styles.fillerText}>Nothing to buy yet</Text> 
         )}
       </View>
     );
@@ -114,6 +114,12 @@ const styles = StyleSheet.create({
     fontSize: 18, 
     paddingTop: 10
   },
+  fillerText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    alignSelf: 'center',
+    marginTop: 20,
+  }
 });
 
 

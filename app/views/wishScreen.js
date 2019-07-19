@@ -15,6 +15,8 @@ import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
 import { GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
 import { SwipeListView, SwipeRow, Animated } from 'react-native-swipe-list-view';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const db = firebase.database();
 
@@ -156,9 +158,10 @@ export default class WishScreen extends React.Component {
             <ItemComponent item = {item}/>}
             keyExtractor={(item, index) => index}
             renderHiddenItem={(data, rowMap) => (
-              <View styles={styles.rowBack}>
+              <View styles={styles.backText}>
                 <Text></Text>
-                <Text style={styles.backText}>Delete</Text>
+                {/* <Text style={styles.backText}>Delete</Text> */}
+                <FontAwesomeIcon style={styles.icon}  icon={ faTrash } size={22} color={'#ED5F56'}/>
                 </View>
             )}
             //leftOpenValue={75}
@@ -186,7 +189,7 @@ export default class WishScreen extends React.Component {
             */
 
         ) : (
-          <Text>Nothing to buy yet</Text> 
+          <Text style={styles.fillerText}> Tap + to add your first Wishlist Item!</Text> 
         )}
       </View>
     );
@@ -207,5 +210,16 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     marginTop: 10,
     color: '#ED5F56',
+  },
+  icon: {
+    alignSelf: 'flex-end',
+    alignItems: 'baseline',
+    marginTop: 5
+  },
+  fillerText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    alignSelf: 'center',
+    marginTop: 20,
   }
 });

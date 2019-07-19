@@ -115,7 +115,7 @@ export default class WishScreen extends React.Component {
             keyExtractor={(item, index) => index}
             />
         ) : (
-          <Text>Your friend doesn't want anything yet</Text>
+          <Text style={styles.fillerText}>Your friend doesn't want anything yet</Text>
         )}
       </View>
     );
@@ -156,4 +156,12 @@ export default class WishScreen extends React.Component {
     );
   } */
 }
+const styles = StyleSheet.create({
+  fillerText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 15,
+    alignSelf: 'center',
+    marginTop: 20,
+  }
+});
 
