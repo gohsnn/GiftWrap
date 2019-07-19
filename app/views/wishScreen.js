@@ -87,26 +87,27 @@ export default class WishScreen extends React.Component {
     this.FBGraphRequest('birthday', this.FBLoginCallback);
   }
 
-  /*
+  
   onSwipeValueChange = (swipeData) => {
     const { key, value } = swipeData;
     // 375 or however large your screen is (i.e. Dimensions.get('window').width)
     if (value < -375 && !this.animationIsRunning) {
         this.animationIsRunning = true;
-        Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
-          
-          const newData = [...this.state.items];
-            const prevIndex = this.state.items.findIndex(item => item.key === key);
-            newData.splice(prevIndex, 1);
-            this.setState({items: newData});
-            this.animationIsRunning = false;
-        });
+        this.handleDelete(key);
+        // Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
+        //   alert(key);
+          // const newData = [...this.state.items];
+          //   const prevIndex = this.state.items.findIndex(item => item.key === key);
+          //   newData.splice(prevIndex, 1);
+          //   this.setState({items: newData});
+            //plan is to call handleDelete on that item using its key 
+        this.animationIsRunning = false;
+        };
     }
-  } */
+   
 
-handleDelete(key) {
-    let uid = this.state.userId;
-    firebase.database().ref('users/' + uid + '/' + 'wishlist/' + key).remove();
+  handleDelete(key) {
+    firebase.database().ref('users/' + userId + '/' + 'wishlist/' + key).remove();
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -205,5 +206,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     alignItems: 'baseline',
     marginTop: 10,
+    color: '#ED5F56',
   }
 });
