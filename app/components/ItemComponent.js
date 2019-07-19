@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity  } from 'react-native';
 import PropTypes from 'prop-types';
 import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
@@ -10,8 +10,8 @@ var user, userId, itemsRef, accessData;
 
 class ItemComponent extends Component {
   static propTypes = {
-    items: PropTypes.array.isRequired,
-    disableDeleteButton: PropTypes.bool.isRequired
+    items: PropTypes.array,
+    disableDeleteButton: PropTypes.bool,
   };
 
   state = {
@@ -34,12 +34,16 @@ class ItemComponent extends Component {
         style={styles.container} 
         onPress = {() => this.props.navigation.navigate('Edit', this.props.item)}>
           <View style={styles.item}>
-            <Text style={styles.itemtext}>{this.props.item.name + ', '}</Text>
-            <Text style={styles.itemPrice}>{this.props.item.price + ' '} </Text>
+          <View style = {{flex: 1}}>
+            <Text style={styles.itemtext}>{this.props.item.name}</Text>
+          </View>
+          <View style = {{flex: 1}}> 
+            <Text style={styles.itemPrice}>{'$' + this.props.item.price} </Text>
+          </View>
           </View>
         </TouchableOpacity>
-          <Button title = 'Delete' 
-          onPress={() => this.handleDelete(this.props.item.key)}/>
+          {/* <Button title = 'Delete' 
+          onPress={() => this.handleDelete(this.props.item.key)}/> */}
       </View>
     );
   } 
@@ -89,20 +93,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15,
     flexDirection: 'column',
-    height: 65,
+    height: 55,
     marginVertical: 8,
     alignSelf: 'stretch',
   },
   item: {
+    marginTop: 15,
     flexDirection: 'row',
-    alignSelf: 'stretch',
-  },
+    // alignSelf: 'stretch',
+    flex: 1,
+  }, 
   itemPrice: {
-    flexDirection: 'row',
     fontFamily: 'Nunito-Regular',
+    textAlign: 'right',
+    marginRight: 20,
     fontSize: 15,
     fontWeight: 'normal',
-    color: '#ED5F56'
+    color: '#ED5F56',
   },
   itemsList: {
     flex: 1,
@@ -110,10 +117,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   itemtext: {
-    fontSize: 12,
+    fontSize: 15,
     fontFamily: 'Nunito-Regular',
     fontWeight: 'normal',
-    textAlign: 'center'
+    flexDirection: 'row',
+    paddingLeft: 28,
   }
 });
 
