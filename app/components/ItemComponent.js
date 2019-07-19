@@ -47,44 +47,12 @@ class ItemComponent extends Component {
       </View>
     );
   } 
-  
-  //without flatist version 
-  /*
-  render() {
-    return (
-      <View style={styles.itemsList}>
-        {this.props.items.map((item, index) => {
-          return (
-            <View key={index}>
-              <Text onPress = {() => this.handleEdit(item)}>
-                <Text style={styles.itemtext}>{item.name + ' '}</Text>
-                <Text style={styles.itemtext}>${item.price}</Text>
-              </Text>
-              
-              {
-                (this.props.disableDeleteButton) ? (null) :
-                <Button title="Delete"
-                onPress={() => this.handleDelete(item.key)}
-                /> 
-              }
-            </View>
-          );
-        })}
-      </View>
-    );
-  } 
-
-  handleEdit(item) {
-    this.props.navigation.navigate('Edit', item);
-  } */
 
   handleDelete(key) {
     let uid = this.state.userId;
     firebase.database().ref('users/' + uid + '/' + 'wishlist/' + key).remove();
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -95,7 +63,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     height: 55,
     marginVertical: 8,
-    alignSelf: 'stretch',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    alignContent: 'space-between'
+    //alignContent: 'stretch',
   },
   item: {
     marginTop: 15,
