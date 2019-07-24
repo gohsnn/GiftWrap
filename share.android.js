@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import {
 	Text,
 	View,
-	TouchableOpacity
+    TouchableOpacity,
+    StyleSheet
 } from 'react-native';
 import ShareExtension from 'rn-extensions-share';
 import cheerio from 'react-native-cheerio';
@@ -11,6 +12,7 @@ import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
 
 // import console = require('console');
+const db = firebase.database();
 
 export default class Share extends Component {
     
@@ -18,15 +20,16 @@ export default class Share extends Component {
         user = firebase.auth().currentUser;
         accessData = await AccessToken.getCurrentAccessToken();
         this.setState({
-          userId: accessData.getUserId()
+          userId: accessData.getUserId(),
+          name: 'blank-name',
+          price: 'blank-price' 
         });
-        console.log(this.state.userId);
     }
 
 	async componentDidMount() {
 		const { type, value } = await ShareExtension.data(); // type = 'media' | 'text'
-		const res = await this.loadGraphicCards(value);
-		console.log(res);
+		await this.loadGraphicCards(value);
+		this.addItem(this.state.name, this.state.price);
 	}
 
 	async loadGraphicCards(searchUrl) {
@@ -35,14 +38,39 @@ export default class Share extends Component {
 		const response = await fetch(searchUrl);   // fetch page
 		const htmlString = await response.text();  // get response text
 		const $ = cheerio.load(htmlString);
-		const name = $('title').text();
-		const price = this.priceSearch(htmlString);
-		return (name + 'price: $' + price.toString());
+		const giftName = $('title').text();
+        const giftPrice = this.priceSearch(htmlString);
+        this.setState({
+            name: giftName,
+            price: giftPrice.toString(),
+            url: searchUrl
+        });
+		// return (name + 'price: $' + price.toString());
 		// console.log(htmlString);
 		// alert($('title').text());
 		// alert(this.priceSearch(htmlString));
 		// alert($('._3n5NQx').text());
-	  }
+      }
+      
+      addItem(item, money) {
+        let userId = this.state.userId;
+        let newItemKey = db.ref('users/' + userId + '/' + 'wishlist').push(
+         {
+           name: 'blank-name',
+           price: 'blank-price',
+           key: 'blank-key'
+         }
+       ).key;
+       return db.ref('users/' + userId + '/' + 'wishlist' + '/' + newItemKey).update(
+         {
+           name: item,
+           price: money,
+           key: newItemKey,
+           productUrl: this.state.url,
+           buyer: undefined
+         }
+       );
+     };
 	
 	  priceSearch(htmlString) {
 		let priceIndex = htmlString.search("pdt_price") +14;
@@ -67,14 +95,25 @@ export default class Share extends Component {
 			<View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
 				<View
 					style={{
-						borderColor: 'green', borderWidth: 1, backgroundColor: 'white', height: 200, width: 300
+						borderColor: '#ED5F56', borderWidth: 1, backgroundColor: 'white', height: 200, width: 300
 					}}
 				>
+                    <Text style = {styles.text}>Item has been added successfully!</Text>
 					<TouchableOpacity onPress = {this.onClose}>
-						<Text>Close</Text>
+						<Text style = {styles.text}>Close</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
 		);
 	}
 }
+const styles = StyleSheet.create({
+    text: {
+        fontFamily: 'Nunito-Regular',
+        textAlign: 'center',
+        marginRight: 20,
+        fontSize: 15,
+        fontWeight: 'normal',
+        color: '#ED5F56',
+    }
+  });

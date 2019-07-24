@@ -35,7 +35,7 @@ class ItemComponent extends Component {
         onPress = {() => this.props.navigation.navigate('Edit', this.props.item)}>
           <View style={styles.item}>
           <View style = {{flex: 1}}>
-            <Text style={styles.itemtext}>{this.props.item.name}</Text>
+            <Text numberOfLines={1} style={styles.itemtext}>{this.props.item.name}</Text>
           </View>
           <View style = {{flex: 1}}> 
             <Text style={styles.itemPrice}>{'$' + this.props.item.price} </Text>
