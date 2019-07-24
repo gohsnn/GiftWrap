@@ -28,6 +28,7 @@
     "react-native-svg": "^9.5.1",
     "react-native-swipe-list-view": "^1.5.8",
     "react-navigation": "^3.11.0",
+    "rn-extensions-share": "^2.3.8",
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
