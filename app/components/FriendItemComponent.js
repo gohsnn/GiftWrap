@@ -27,7 +27,8 @@ class FriendItemComponent extends Component {
               id: this.props.friendID,
               name: this.props.item.name,
               price: this.props.item.price,
-              gifteeWishlistKey: this.props.item.key
+              gifteeWishlistKey: this.props.item.key,
+              productUrl: this.props.item.productUrl
             })}>
               <View style = {styles.item}>
                 <View style = {{flex: 1}}>

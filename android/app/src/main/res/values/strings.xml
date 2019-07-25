@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GiftWrap</string>
     <string name="facebook_app_id">473869813155397</string>
+    <string name="title_activity_share">ShareGift</string>
 </resources>

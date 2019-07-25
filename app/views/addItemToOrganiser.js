@@ -45,13 +45,16 @@ export default class AddtoOrganiserScreen extends React.Component {
     giftName = await this.props.navigation.getParam('name', 'NO-GIFT-NAME');
     giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
     gifteeWishlistKey = await this.props.navigation.getParam('gifteeWishlistKey', 'NO-GIFTEE-WISHLIST-KEY');
+    productURL = await this.props.navigation.getParam('productUrl', 'NO-PRODUCT-URL');
+    console.log(productURL);
     this.setState({
       name: giftName,
       price: giftPrice,
       giftee: friendName,
       gifteeID: friendID,
+      productURL: productURL,
       gifteeWishlistKey: gifteeWishlistKey
-    })
+    });
   } 
 
  addItem(item, money, person, event, date) {
