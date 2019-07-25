@@ -75,7 +75,7 @@ export default class EditOrganiserScreen extends React.Component {
       key: key,
       bought: bought,
       oldDate: date,
-      productURL: productUrl
+      productURL: productUrl,
       selectedEvent: event,
     });
     console.log(this.state.selectedEvent);
