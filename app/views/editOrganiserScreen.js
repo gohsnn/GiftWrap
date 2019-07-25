@@ -69,7 +69,7 @@ export default class EditOrganiserScreen extends React.Component {
       key: key,
       bought: bought,
       oldDate: date
-    })
+    });
   } 
 
  addItem(item, money, person, event, date, bought) {

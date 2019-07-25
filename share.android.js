@@ -11,7 +11,6 @@ import cheerio from 'react-native-cheerio';
 import firebase from 'react-native-firebase';
 import { AccessToken } from 'react-native-fbsdk';
 
-// import console = require('console');
 const db = firebase.database();
 
 export default class Share extends Component {
@@ -45,11 +44,7 @@ export default class Share extends Component {
             price: giftPrice.toString(),
             url: searchUrl
         });
-		// return (name + 'price: $' + price.toString());
-		// console.log(htmlString);
-		// alert($('title').text());
-		// alert(this.priceSearch(htmlString));
-		// alert($('._3n5NQx').text());
+        // console.log(giftName);
       }
       
       addItem(item, money) {
@@ -73,7 +68,7 @@ export default class Share extends Component {
      };
 	
 	  priceSearch(htmlString) {
-		let priceIndex = htmlString.search("pdt_price") +14;
+		let priceIndex = htmlString.search("pdt_price") + 14;
 		let discountIndex = htmlString.search("pdt_discount") + 18;
 		let originalPrice =  parseFloat(htmlString.slice(priceIndex, priceIndex+5));
 		let discount =  parseInt(htmlString.slice(discountIndex, discountIndex+2));
