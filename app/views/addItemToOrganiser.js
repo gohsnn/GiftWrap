@@ -68,7 +68,8 @@ export default class AddtoOrganiserScreen extends React.Component {
       username: 'blank-username',
       date: 'blank-date',
       gifteeID: 'blank-giftee-id',
-      gifteeWishlistKey: 'blank-giftee-wishlist-key'
+      gifteeWishlistKey: 'blank-giftee-wishlist-key',
+      productURL: 'blank-productURL'
     }
   ).key;
   return db.ref('users/' + userId + '/' + cat + '/' + date + '/' + newItemKey).update(
@@ -81,7 +82,8 @@ export default class AddtoOrganiserScreen extends React.Component {
       username: name,
       date: date,
       gifteeID: this.state.gifteeID,
-      gifteeWishlistKey: this.state.gifteeWishlistKey
+      gifteeWishlistKey: this.state.gifteeWishlistKey,
+      productURL: this.state.productURL
     }
   );
 };

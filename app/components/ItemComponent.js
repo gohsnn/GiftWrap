@@ -37,7 +37,7 @@ class ItemComponent extends Component {
           <View style = {{flex: 1}}>
             <Text numberOfLines={1} style={styles.itemtext}>{this.props.item.name}</Text>
           </View>
-          <View style = {{flex: 1}}> 
+          <View style = {{flex: 0.35}}> 
             <Text style={styles.itemPrice}>{'$' + this.props.item.price} </Text>
           </View>
           </View>

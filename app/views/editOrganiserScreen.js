@@ -6,7 +6,8 @@ import {
   TouchableHighlight,
   Alert, 
   View,
-  Switch
+  Switch,
+  Linking
 } from 'react-native';
 import {Container, 
         Input, 
@@ -23,6 +24,7 @@ import {Container,
 import firebase from 'react-native-firebase';
 import {AccessToken} from 'react-native-fbsdk';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+// import console = require('console');
 
 const db = firebase.database();
 var user, userId, name, cat, photoUrl, addItem, friendID, giftName, friendName;
@@ -63,6 +65,8 @@ export default class EditOrganiserScreen extends React.Component {
     event = await this.props.navigation.getParam('event', 'NO-EVENT');
     key = await this.props.navigation.getParam('key', 'NO-KEY');
     bought = await this.props.navigation.getParam('bought', 'NO-BOUGHT');
+    productUrl = await this.props.navigation.getParam('productURL', 'NO-PRODUCT-URL');
+    console.log(productUrl);
     this.setState({
       name: giftName,
       price: giftPrice,
@@ -70,8 +74,9 @@ export default class EditOrganiserScreen extends React.Component {
       gifteeID: friendID,
       key: key,
       bought: bought,
+      oldDate: date,
+      productURL: productUrl
       selectedEvent: event,
-      oldDate: date
     });
     console.log(this.state.selectedEvent);
   } 
@@ -91,7 +96,8 @@ export default class EditOrganiserScreen extends React.Component {
       username: name,
       date: date,
       gifteeID: this.state.gifteeID,
-      bought: bought
+      bought: bought, 
+      productURL: this.state.productURL
     }
   );
 };
@@ -158,6 +164,9 @@ handleDelete= () => {
         db.ref('users/' + userId + '/' + 'organiser/' + this.state.oldDate + '/' + key).remove();
         this.props.navigation.navigate('Organiser'); 
       }},
+      {
+        text: 'Cancel',
+      },
     ],
     {cancelable: false},
   );
@@ -239,6 +248,10 @@ onBlurThree = () => {
   this.setState(state);
 }
 
+handleLink = () => {
+  Linking.openURL(this.state.productURL);
+}
+
 render() {
   return (
     <View>
@@ -272,6 +285,14 @@ render() {
         <Text style = {styles.text}>Bought</Text>
         <Switch thumbColor={'#F7F7F7'} trackColor={{true: '#ed5f56'}} onValueChange={this.toggleBought} value={this.state.bought}/>
       </View>
+      
+      <TouchableOpacity
+          style={styles.buttonLink}
+          onPress={this.handleLink}
+        >
+          <Text style={styles.buttonText}>Link</Text>
+        </TouchableOpacity>
+      
       <View style = {styles.both}>
         <TouchableOpacity
           style={styles.buttonDelete}
@@ -289,6 +310,8 @@ render() {
       </View>
 
       
+
+      
       
     </View>
   );
@@ -298,6 +321,7 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     alignItems: 'center',
+    marginBottom: 55,
   },
   text: {
     fontSize: 15,
@@ -335,8 +359,20 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center'
   },
+  buttonLink: {
+    height: 45,
+    // flexDirection: 'row',
+    backgroundColor: '#F6F6F6',
+    borderColor: '#F6F6F6',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginHorizontal: 21,
+    marginTop: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
   both: {
-    marginTop: 60,
+    marginTop: 0,
     flexDirection: 'row',
     height: 55,
     justifyContent: 'space-between'
