@@ -17,10 +17,7 @@ const db = firebase.database();
 var userName, userId, itemsRef, accessData;
 
 export default class WishScreen extends React.Component {
-//   static propTypes = {
-//       friend: PropTypes.object.isRequired
-//   };
- 
+
   state = {
     items: [],
     friendID: ''
