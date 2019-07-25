@@ -59,6 +59,8 @@ export default class EditOrganiserScreen extends React.Component {
     giftName = await this.props.navigation.getParam('name', 'NO-GIFT-NAME');
     giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
     date = await this.props.navigation.getParam('date', 'NO-GIFT-DATE');
+    //CHANGES HERE
+    event = await this.props.navigation.getParam('event', 'NO-EVENT');
     key = await this.props.navigation.getParam('key', 'NO-KEY');
     bought = await this.props.navigation.getParam('bought', 'NO-BOUGHT');
     this.setState({
@@ -68,8 +70,10 @@ export default class EditOrganiserScreen extends React.Component {
       gifteeID: friendID,
       key: key,
       bought: bought,
+      selectedEvent: event,
       oldDate: date
     });
+    console.log(this.state.selectedEvent);
   } 
 
  addItem(item, money, person, event, date, bought) {
