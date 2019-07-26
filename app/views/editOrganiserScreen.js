@@ -172,12 +172,23 @@ handleDelete= () => {
   );
   }
 
-handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date, this.state.bought);
-  Alert.alert('Item saved successfully');
-  this.props.navigation.navigate('Organiser');
-};
+handleSubmit = async () => {
+  if (this.state.selectedEvent == '') {
+    Alert.alert(
+      'Item was not added',
+      'Please select an event',
+      [
+        {text: 'OK', onPress: () => this.props.navigation.navigate('EditOrg')},
+      ],
+      {cancelable: false},
+      )
+  } else {
+    this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+    Alert.alert('Item saved successfully');
+    this.props.navigation.navigate('Organiser');
+  }
 
+};
 
     
   static navigationOptions = ({ navigation }) => {
@@ -255,9 +266,9 @@ handleLink = () => {
 render() {
   return (
     <View>
-      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeGiftee} value = {this.state.giftee} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()}/>
-      <TextInput style={[styles.itemInput, this.state.styleTwo]} onChange={this.handleChangeName} value = {this.state.name} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()}/>
-      <TextInput style={[styles.itemInput, this.state.styleThree]} onChange={this.handleChangePrice} value = {this.state.price} onFocus={() => this.onFocusThree()} onBlur={() => this.onBlurThree()}/>
+      <TextInput editable={false} style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeGiftee} value = {this.state.giftee} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()}/>
+      <TextInput editable={false} style={[styles.itemInput, this.state.styleTwo]} onChange={this.handleChangeName} value = {this.state.name} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()}/>
+      <TextInput editable={false} style={[styles.itemInput, this.state.styleThree]} onChange={this.handleChangePrice} value = {this.state.price} onFocus={() => this.onFocusThree()} onBlur={() => this.onBlurThree()}/>
         <Form>
             <Picker
             mode="dropdown"

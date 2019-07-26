@@ -140,11 +140,23 @@ handleChangeEvent = () => {
 }
 
 handleSubmit = async () => {
-  await this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
-  await this.reserveItem();
-  Alert.alert('Item saved successfully');
-  this.props.navigation.navigate('Friend');
-  this.props.navigation.navigate('Organiser');
+  if (this.state.selectedEvent == '' || this.state.selectedEvent ==  undefined) {
+    Alert.alert(
+      'Item was not added',
+      'Please select an event',
+      [
+        {text: 'OK', onPress: () => this.props.navigation.navigate('AddOrg')},
+      ],
+      {cancelable: false},
+      )
+  } else {
+    await this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+    await this.reserveItem();
+    Alert.alert('Item saved successfully');
+    this.props.navigation.navigate('Friend');
+    this.props.navigation.navigate('Organiser');
+  }
+
 };
     
     static navigationOptions = ({ navigation }) => {
