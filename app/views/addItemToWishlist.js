@@ -81,15 +81,26 @@ handleChangePrice = e => {
 };
 
 handleSubmit = () => {
-  this.addItem(this.state.name, this.state.price);
-  Alert.alert(
-    'Add Item',
-    'Item saved successfully',
-    [
-      {text: 'OK', onPress: () => this.props.navigation.navigate('Wishlist')},
-    ],
-    {cancelable: false},
-  );
+  if (this.state.name == 'blank-name' || this.state.price == 'blank-price') {
+    Alert.alert(
+      'Item was not added',
+      'Please input both gift name and price',
+      [
+        {text: 'OK', onPress: () => this.props.navigation.navigate('AddToWishlistScreen')},
+      ],
+      {cancelable: false},
+      )
+  } else {
+    this.addItem(this.state.name, this.state.price);
+    Alert.alert(
+      'Add Item',
+      'Item saved successfully',
+      [
+        {text: 'OK', onPress: () => this.props.navigation.navigate('Wishlist')},
+      ],
+      {cancelable: false},
+    );
+  }
 };
     
     static navigationOptions = ({ navigation }) => {

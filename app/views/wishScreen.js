@@ -25,7 +25,8 @@ var user, userId, itemsRef, accessData;
 export default class WishScreen extends React.Component {
   
   state = {
-    items: []
+    items: [],
+    delCount: 0
   }
 
   //rowTranslateAnimatedValues = {};
@@ -93,9 +94,10 @@ export default class WishScreen extends React.Component {
   onSwipeValueChange = (swipeData) => {
     const { key, value } = swipeData;
     // 375 or however large your screen is (i.e. Dimensions.get('window').width)
-    if (value < -375 && !this.animationIsRunning) {
-        this.animationIsRunning = true;
-        this.handleDelete(key);
+    if (value < -375 && !this.animationIsRunning && this.state.delCount == 0) {
+      this.animationIsRunning = true;
+      //this.setState({ delCount: -1 }); 
+      this.handleDelete(key);
         // Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
         //   alert(key);
           // const newData = [...this.state.items];
@@ -104,7 +106,8 @@ export default class WishScreen extends React.Component {
           //   this.setState({items: newData});
             //plan is to call handleDelete on that item using its key 
         this.animationIsRunning = false;
-        };
+          };
+        //this.setState({ delCount: 0 });
     }
    
 
