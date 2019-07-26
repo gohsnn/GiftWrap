@@ -4,7 +4,7 @@ import {
 	Text,
 	View,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
 } from 'react-native';
 import ShareExtension from 'rn-extensions-share';
 import cheerio from 'react-native-cheerio';
@@ -87,28 +87,52 @@ export default class Share extends Component {
 
 	render() {
 		return ( 
-			<View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
-				<View
-					style={{
-						borderColor: '#ED5F56', borderWidth: 1, backgroundColor: 'white', height: 200, width: 300
-					}}
-				>
+                <View style={styles.container}>
                     <Text style = {styles.text}>Item has been added successfully!</Text>
-					<TouchableOpacity onPress = {this.onClose}>
-						<Text style = {styles.text}>Close</Text>
+					<TouchableOpacity style = {styles.button} onPress = {this.onClose}>
+						<Text style = {styles.buttonText}>Close</Text>
 					</TouchableOpacity>
-				</View>
-			</View>
+
+			    </View>
+			
 		);
 	}
 }
 const styles = StyleSheet.create({
+    container: {
+        flex:1,
+        // borderColor: '#ED5F56', 
+        // borderWidth: 1, 
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+    },
     text: {
-        fontFamily: 'Nunito-Regular',
+        fontFamily: 'Nunito-SemiBold',
         textAlign: 'center',
-        marginRight: 20,
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: 'normal',
         color: '#ED5F56',
-    }
+    },
+    button: {
+        height: 45,
+        flexDirection: 'row',
+        backgroundColor: '#F6F6F6',
+        borderColor: '#F6F6F6',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginHorizontal: 21,
+        marginVertical: 8,
+        alignSelf: 'stretch',
+        justifyContent: 'center'
+      },
+      buttonText: {
+        fontFamily: 'Nunito-Regular',
+        textAlign: 'center',
+        fontSize: 15,
+        color: '#ED5F56',
+        marginTop: 7,
+        // justifyContent: 'center',
+      }
   });
