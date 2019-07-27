@@ -108,8 +108,10 @@ handleChangeName = e => {
 };
 
 handleChangePrice = e => {
+  var value = e.nativeEvent.text;
+  value = parseFloat(value).toFixed(2);
   this.setState({
-    price: e.nativeEvent.text
+    price: value
   });
 };
 

@@ -59,7 +59,7 @@ export default class EditOrganiserScreen extends React.Component {
     friendName = await this.props.navigation.getParam('giftee', 'NO-FRIEND-NAME');
     friendID = await this.props.navigation.getParam('gifteeID', 'NO-GIFTEE-ID');
     giftName = await this.props.navigation.getParam('name', 'NO-GIFT-NAME');
-    giftPrice = await this.props.navigation.getParam('price', 'NO-GIFT-PRICE');
+    giftPrice = await parseFloat(this.props.navigation.getParam('price', 'NO-GIFT-PRICE')).toFixed(2);
     date = await this.props.navigation.getParam('date', 'NO-GIFT-DATE');
     //CHANGES HERE
     event = await this.props.navigation.getParam('event', 'NO-EVENT');
@@ -115,8 +115,10 @@ handleChangeName = e => {
 };
 
 handleChangePrice = e => {
+  var value = e.nativeEvent.text;
+  value = parseFloat(value).toFixed(2);
   this.setState({
-    price: e.nativeEvent.text
+    price: value
   });
 };
 
