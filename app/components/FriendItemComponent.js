@@ -29,7 +29,9 @@ class FriendItemComponent extends Component {
               price: this.props.item.price,
               gifteeWishlistKey: this.props.item.key,
               productUrl: this.props.item.productUrl
-            })}>
+            })}
+            disabled = {(this.props.item.buyer != undefined)}
+            >
               <View style = {styles.item}>
                 <View style = {{flex: 1}}>
                   <Text numberOfLines={1} style={styles.itemtext}>{this.props.item.name}</Text>
