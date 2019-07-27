@@ -25,7 +25,7 @@ class OrgComponent extends Component {
          <TouchableOpacity style={styles.container} onPress = {() => this.props.navigation.navigate('EditOrg', this.props.item)}>
             <Text style={styles.itemGiftee}>{this.props.item.giftee + ' '}</Text>
             <View style={styles.item}>
-              <Text numberOfLines={1} style={styles.itemtext}>{this.props.item.name + ', '}</Text>
+              <Text numberOfLines={1} style={styles.itemtext}>{this.props.item.name}</Text>
               <Text style={styles.itemPrice}>${this.props.item.price + ' '}</Text>
             </View>
               {this.props.item.bought == true ? <Text style={styles.itemBought}> Bought </Text> : (null) }
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito-Regular',
     fontSize: 15,
     fontWeight: 'normal',
-    color: '#ED5F56'
+    color: '#ED5F56',
   },
   itemtext: {
     flex: 1,

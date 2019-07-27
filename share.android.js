@@ -40,7 +40,6 @@ export default class Share extends Component {
         } else {
             this.setState({text: 'ShareGift only works with Lazada.'});
         }
-        
 	}
 
 	async loadGraphicCards(searchUrl) {
