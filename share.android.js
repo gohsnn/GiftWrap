@@ -41,7 +41,7 @@ export default class Share extends Component {
         const giftPrice = this.priceSearch(htmlString);
         this.setState({
             name: giftName,
-            price: giftPrice.toString(),
+            price: giftPrice.toFixed(2), 
             url: searchUrl
         });
         // console.log(giftName);
