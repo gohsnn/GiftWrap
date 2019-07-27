@@ -14,6 +14,12 @@ import { AccessToken } from 'react-native-fbsdk';
 const db = firebase.database();
 
 export default class Share extends Component {
+    constructor() {
+        super();
+        this.state = {
+            text: 'Saving...'
+        };
+    }
     
     async componentWillMount() {
         user = firebase.auth().currentUser;
@@ -21,14 +27,20 @@ export default class Share extends Component {
         this.setState({
           userId: accessData.getUserId(),
           name: 'blank-name',
-          price: 'blank-price' 
+          price: 'blank-price', 
         });
     }
 
 	async componentDidMount() {
 		const { type, value } = await ShareExtension.data(); // type = 'media' | 'text'
-		await this.loadGraphicCards(value);
-		this.addItem(this.state.name, this.state.price);
+        if (value.indexOf("lazada") != -1) {
+            await this.loadGraphicCards(value);
+            this.setState({text: 'Item saved successfully.'});
+            this.addItem(this.state.name, this.state.price);
+        } else {
+            this.setState({text: 'ShareGift only works with Lazada.'});
+        }
+        
 	}
 
 	async loadGraphicCards(searchUrl) {
@@ -88,7 +100,7 @@ export default class Share extends Component {
 	render() {
 		return ( 
                 <View style={styles.container}>
-                    <Text style = {styles.text}>Item has been added successfully!</Text>
+                    <Text style = {styles.text}>{this.state.text}</Text>
 					<TouchableOpacity style = {styles.button} onPress = {this.onClose}>
 						<Text style = {styles.buttonText}>Close</Text>
 					</TouchableOpacity>
