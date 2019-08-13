@@ -75,6 +75,7 @@ export default class EditOrganiserScreen extends React.Component {
       key: key,
       bought: bought,
       oldDate: date,
+      date: date,
       productURL: productUrl,
       selectedEvent: event,
     });
@@ -137,6 +138,7 @@ handleChangeEvent = () => {
     });
   } else {
     itemsRef = db.ref('users/' + 'events/' + event);
+    console.log('handleChangeEvent called');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
@@ -185,7 +187,7 @@ handleSubmit = async () => {
       {cancelable: false},
       )
   } else {
-    this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date);
+    this.addItem(this.state.name, this.state.price, this.state.giftee, this.state.selectedEvent, this.state.date, this.state.bought);
     Alert.alert('Item saved successfully');
     this.props.navigation.navigate('Organiser');
   }
