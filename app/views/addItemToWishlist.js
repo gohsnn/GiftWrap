@@ -160,7 +160,7 @@ onBlurTwo = () => {
 render() {
   return (
     <View>
-      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeName} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()} placeholder = "Gift Name" />
+      <TextInput style={[styles.itemInput, this.state.styleOne]} onChange={this.handleChangeName} onFocus={() => this.onFocusOne()} onBlur={() => this.onBlurOne()} placeholder = "Gift Name (be as specific as possible!)" />
       <TextInput style={[styles.itemInput, this.state.styleTwo]} keyboardType='numeric' maxLength={6} onChange={this.handleChangePrice} onFocus={() => this.onFocusTwo()} onBlur={() => this.onBlurTwo()} placeholder = "Gift Price" />
       <TouchableOpacity
         style={styles.button}

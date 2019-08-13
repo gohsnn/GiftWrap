@@ -8,13 +8,14 @@ import {
   StyleSheet,
   View,
   Icon,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } from 'react-native';
 import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 import ItemComponent from '../components/ItemComponent'
 import firebase from 'react-native-firebase';
 import { GraphRequest, GraphRequestManager, AccessToken } from 'react-native-fbsdk';
-import { SwipeListView, SwipeRow, Animated } from 'react-native-swipe-list-view';
+import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -75,11 +76,15 @@ export default class WishScreen extends React.Component {
     accessData = await AccessToken.getCurrentAccessToken();
     userId = accessData.getUserId();
     itemsRef = db.ref('users/' + userId + '/' + 'wishlist');
+    this.rowTranslateAnimatedValues = {};
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       if (data) {
         let items = Object.values(data);
         this.setState({ items });
+        items.forEach((item, index) => {
+          this.rowTranslateAnimatedValues[item.key] = new Animated.Value(1);
+        }); 
 /*
         this.items.forEach((_, i) => {
         this.rowTranslateAnimatedValues['${i}'] = new Animated.Value(1);
@@ -88,26 +93,38 @@ export default class WishScreen extends React.Component {
       } 
     });
     this.FBGraphRequest('birthday', this.FBLoginCallback);
+    
   }
 
   
-  onSwipeValueChange = (swipeData) => {
+  onSwipeValueChange = async (swipeData) => {
     const { key, value } = swipeData;
     // 375 or however large your screen is (i.e. Dimensions.get('window').width)
-    if (value < -375 && !this.animationIsRunning && this.state.delCount == 0) {
+    if (value < -375 && !this.animationIsRunning) {
+      // this.setState({animationIsRunning: true});
       this.animationIsRunning = true;
-      //this.setState({ delCount: -1 }); 
-      this.handleDelete(key);
-        // Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 200 }).start(() => {
+      console.log(this.animationIsRunning);
+      // this.deleted = true;
+      // alert(key);
+      Animated.timing(this.rowTranslateAnimatedValues[key], { toValue: 0, duration: 1000 }).start(() => {
+        this.handleDelete(key);
+        this.animationIsRunning = false;
+        console.log(this.animationIsRunning);
+      });
         //   alert(key);
           // const newData = [...this.state.items];
           //   const prevIndex = this.state.items.findIndex(item => item.key === key);
           //   newData.splice(prevIndex, 1);
           //   this.setState({items: newData});
             //plan is to call handleDelete on that item using its key 
-        this.animationIsRunning = false;
-          };
-        //this.setState({ delCount: 0 });
+            //issue is probably the fact on swipe value Change is called multiple times as the value changes multiple times
+            //it deletes the next item because existing one is gone
+            //need to check how to store a deleted boolean for each item so on swipe value change is called once
+    };
+    // this.deleted = false;
+    // this.animationIsRunning = await false;
+    // await this.setState({ delCount: 0 });
+
     }
    
 
@@ -163,7 +180,6 @@ export default class WishScreen extends React.Component {
             renderHiddenItem={(data, rowMap) => (
               <View styles={styles.backText}>
                 <Text></Text>
-                {/* <Text style={styles.backText}>Delete</Text> */}
                 <FontAwesomeIcon style={styles.icon}  icon={ faTrash } size={22} color={'#ED5F56'}/>
                 </View>
             )}
