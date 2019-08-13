@@ -92,6 +92,15 @@ handleSubmit = () => {
       ],
       {cancelable: false},
       )
+  } else if (this.checkExisting()) {
+    Alert.alert(
+      'Item was not added',
+      'You already have this item in your wishlist',
+      [
+        {text: 'OK', onPress: () => this.props.navigation.navigate('AddToWishlistScreen')},
+      ],
+      {cancelable: false},
+      )
   } else {
     this.addItem(this.state.name, this.state.price);
     Alert.alert(
@@ -104,7 +113,21 @@ handleSubmit = () => {
     );
   }
 };
-    
+
+//should return a boolean after checking the existing name of the gift
+checkExisting = () => {
+  db.ref('users/' + userId + '/' + cat).orderByChild("name").equalTo(this.state.name).on('value', function(snapshot) {
+    console.log(snapshot.val())
+    console.log('----------');
+
+    if (snapshot.val() == '') {
+      return false;
+    } else {
+      return true;
+    }
+  })
+}
+  
     static navigationOptions = ({ navigation }) => {
   return {
     title: 'Add Item to Wishlist',
