@@ -172,7 +172,7 @@ handleDelete= () => {
         text: 'Cancel',
       },
     ],
-    {cancelable: false},
+    {cancelable: true},
   );
   }
 
