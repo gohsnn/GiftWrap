@@ -108,7 +108,7 @@ handleDelete= () => {
         this.props.navigation.navigate('Wishlist'); 
       }},
     ],
-    {cancelable: false},
+    {cancelable: true},
   );
   
 }
